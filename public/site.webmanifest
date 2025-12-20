@@ -1,11 +1,11 @@
 {
-  "name": "مدیریت",
-  "short_name": "مدریت",
-  "description": "یک وبسایت مدرن برای مدیریت کمپنی ها",
+  "name": "ZarGold",
+  "short_name": "ZarGold",
+  "description": "یک سیستم مدیریت طلای پیشرفته برای کسب‌وکارهای طلا و جواهر",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#015249",
-  "theme_color": "#015249",
+  "background_color": "#ffeecb",
+  "theme_color": "#ffeecb",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",

@@ -14,14 +14,16 @@ export default function ExpenseDonutChart() {
     DASHBOARD.expense_chart
   );
 
+
   // 🎨 رنگ‌های داینامیک (Theme-based)
+  const rootStyles = getComputedStyle(document.documentElement);
   const dynamicColors = [
-    "var(--primary-300)",
-    "var(--primary-400)",
-    "var(--primary-500)",
-    "var(--primary-600)",
-    "var(--primary-700)",
-    "var(--primary-800)",
+    rootStyles.getPropertyValue("--color-primary-300"),
+    rootStyles.getPropertyValue("--color-primary-400"),
+    rootStyles.getPropertyValue("--color-primary-500"),
+    rootStyles.getPropertyValue("--color-primary-600"),
+    rootStyles.getPropertyValue("--color-primary-700"),
+    rootStyles.getPropertyValue("--color-primary-800"),
   ];
 
   const expenseData: ExpenseMonthItem[] = data?.months?.map((item, index) => ({

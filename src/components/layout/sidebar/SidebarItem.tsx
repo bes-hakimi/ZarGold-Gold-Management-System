@@ -82,7 +82,7 @@ const SidebarItem = ({
 
           {title === 'اعلانات' && unreadCount > 0 && (
             <div className="absolute top-0 left-0 flex items-center justify-center min-w-5 min-h-5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse">
-              <span className="pt-[2px]">{unreadCount}</span>
+              <span className="pb-[1px]">{unreadCount}</span>
             </div>
           )}
         </div>

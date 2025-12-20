@@ -68,6 +68,11 @@ export default function SalesChart() {
     };
   }) ?? [];
 
+  const rootStyles = getComputedStyle(document.documentElement);
+  const primary600 = rootStyles.getPropertyValue("--color-primary-600").trim();
+  const primary700 = rootStyles.getPropertyValue("--color-primary-700").trim();
+
+
 
   return (
     <Card className="p-3 md:p-6 border-gray-200/60 shadow-none">
@@ -99,8 +104,8 @@ export default function SalesChart() {
             >
               <defs>
                 <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="10%" stopColor="var(--primary-600)" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="var(--primary-600)" stopOpacity={0.05} />
+                  <stop offset="10%" stopColor={primary600} stopOpacity={0.8} />
+                  <stop offset="95%" stopColor={primary600} stopOpacity={0.05} />
                 </linearGradient>
               </defs>
 
@@ -132,11 +137,11 @@ export default function SalesChart() {
               <Area
                 type="monotone"
                 dataKey="sales"
-                stroke="var(--primary-700)"
+                stroke={primary700}
                 strokeWidth={2.5}
                 fill="url(#colorSales)"
-                dot={{ r: 3, fill: "var(--primary-700)", strokeWidth: 0 }}
-                activeDot={{ r: 6, fill: "var(--primary-700)" }}
+                dot={{ r: 3, fill: primary700, strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: primary700 }}
               />
             </AreaChart>
           </ResponsiveContainer>
