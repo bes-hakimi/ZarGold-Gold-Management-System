@@ -1,0 +1,109 @@
+/* styles/InvoicePrintStyles.css */
+@media print {
+    @page {
+        size: A5;
+        margin: 8mm;
+    }
+
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+
+        .print\:block {
+            display: block !important;
+        }
+    }
+
+    body {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        font-size: 10px !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #invoice-to-download,
+    #invoice-to-download * {
+        visibility: visible;
+    }
+
+    #invoice-to-download {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0.5rem;
+        border: none !important;
+        box-shadow: none !important;
+        background: white !important;
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+    }
+
+    .no-print,
+    button {
+        display: none !important;
+    }
+
+    /* کاهش سایز فونت‌ها برای A5 */
+    #invoice-to-download h2,
+    #invoice-to-download h4,
+    #invoice-to-download .font-semibold {
+        font-size: 10px !important;
+    }
+
+    #invoice-to-download p,
+    #invoice-to-download span,
+    #invoice-to-download td,
+    #invoice-to-download th {
+        font-size: 9px !important;
+    }
+
+    /* فشرده‌سازی بیشتر برای جدول */
+    #invoice-to-download table {
+        font-size: 8px !important;
+    }
+
+    #invoice-to-download th,
+    #invoice-to-download td {
+        padding: 2px 4px !important;
+    }
+
+    /* حفظ رنگ‌ها در چاپ */
+    .print-bg-teal-500,
+    .bg-teal-500 {
+        background-color: #14b8a6 !important;
+    }
+
+    .print-bg-teal-50,
+    .bg-teal-50 {
+        background-color: #f0fdfa !important;
+    }
+
+    .print-border-teal-200,
+    .border-teal-200 {
+        border-color: #99f6e4 !important;
+    }
+
+    .border-teal-600 {
+        border-color: #0d9488 !important;
+    }
+
+    .text-teal-800 {
+        color: #115e59 !important;
+    }
+
+    .text-teal-700 {
+        color: #0f766e !important;
+    }
+
+    .text-teal-900 {
+        color: #134e4a !important;
+    }
+}

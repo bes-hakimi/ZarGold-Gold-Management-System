@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* ================================
+   Shabnam Font Face
+================================ */
+@font-face {
+  font-family: "Shabnam";
+  src: url("/fonts/Shabnam.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Shabnam";
+  src: url("/fonts/Shabnam-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Shabnam";
+  src: url("/fonts/Shabnam-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Shabnam";
+  src: url("/fonts/Shabnam-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Shabnam";
+  src: url("/fonts/Shabnam-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+html {
+  font-family: "Shabnam", system-ui, sans-serif;
+  line-height: 1.6;
+  direction: rtl;
+  background-color: #fafafa;
+}
+
+body {
+  font-family: "Shabnam", system-ui, sans-serif;
+}
+
+
+
+/* ================================
+   ZarGold – Light Mode Tokens
+================================ */
+
+:root {
+  /* Gold (Primary) */
+  --gold-50:  #fff9e6;
+  --gold-100: #ffefbf;
+  --gold-200: #ffe08a;
+  --gold-300: #ffd04d;
+  --gold-400: #e6b800;
+  --gold-500: #c9a24d; /* MAIN GOLD */
+  --gold-600: #a88732;
+  --gold-700: #806622;
+  --gold-800: #594615;
+  --gold-900: #33270b;
+
+  /* Neutral (Light UI) */
+  --neutral-50:  #ffffff;
+  --neutral-100: #fafafa;
+  --neutral-200: #f4f4f5;
+  --neutral-300: #e4e4e7;
+  --neutral-400: #d4d4d8;
+  --neutral-500: #a1a1aa;
+  --neutral-600: #71717a;
+  --neutral-700: #52525b;
+  --neutral-800: #3f3f46;
+  --neutral-900: #18181b;
+
+  /* Financial States */
+  --success: #16a34a;
+  --danger:  #dc2626;
+  --warning: #ca8a04;
+  --info:    #2563eb;
+
+  /* UI */
+  --surface: #ffffff;
+  --border:  #e4e4e7;
+  --muted:   #6b7280;
+
+  /* Text */
+  --text-primary:   #18181b;
+  --text-secondary: #52525b;
+}
+
+/* ================================
+   Tailwind Theme Mapping
+================================ */
+@theme {
+  /* Gold */
+  --color-primary-50: var(--gold-50);
+  --color-primary-100: var(--gold-100);
+  --color-primary-200: var(--gold-200);
+  --color-primary-300: var(--gold-300);
+  --color-primary-400: var(--gold-400);
+  --color-primary-500: var(--gold-500);
+  --color-primary-600: var(--gold-600);
+  --color-primary-700: var(--gold-700);
+  --color-primary-800: var(--gold-800);
+  --color-primary-900: var(--gold-900);
+
+  /* Neutral */
+  --color-secondary-50: var(--neutral-50);
+  --color-secondary-100: var(--neutral-100);
+  --color-secondary-200: var(--neutral-200);
+  --color-secondary-300: var(--neutral-300);
+  --color-secondary-400: var(--neutral-400);
+  --color-secondary-500: var(--neutral-500);
+  --color-secondary-600: var(--neutral-600);
+  --color-secondary-700: var(--neutral-700);
+  --color-secondary-800: var(--neutral-800);
+  --color-secondary-900: var(--neutral-900);
+
+  /* States */
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  /* UI */
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
+  /* Text */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+}
+
+/* ================================
+   Base Layout & Typography
+================================ */
+
+html {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  direction: rtl;
+  background-color: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+body {
+  @apply font-sans bg-secondary-100 text-text-primary;
+}
+
+/* Numbers for finance */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ================================
+   Animations
+================================ */
+
+@keyframes slide-up {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.25s ease-out forwards;
+}
+
+/* ================================
+   Utilities
+================================ */
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+
