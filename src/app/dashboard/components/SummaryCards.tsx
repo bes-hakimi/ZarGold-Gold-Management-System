@@ -29,38 +29,39 @@ export default function SummaryCards() {
       title: "مجموع محصولات",
       value: r.total_stock_qty ?? 0,
       icon: Package,
-      gradient: "from-blue-400 to-blue-700",
+      gradient: "from-[#d4af37] to-[#a88732]", // Gold classic
       update: data.last_update ?? "08:00 AM",
     },
     {
       title: "مجموع فروشات",
       value: r.total_sales_price ?? 0,
       icon: DollarSign,
-      gradient: "from-yellow-400 to-orange-600",
+      gradient: "from-[#f5c542] to-[#c9a24d]", // Bright gold → main gold
       update: data.last_update ?? "08:00 AM",
     },
     {
       title: "مجموع مصارف",
       value: `${r.total_expense ?? 0} افغانی`,
       icon: Activity,
-      gradient: "from-red-400 to-rose-600",
+      gradient: "from-[#b45309] to-[#78350f]", // Dark amber (expense / خروجی پول)
       update: data.last_update ?? "08:00 AM",
     },
     {
       title: "مجموع اصل پول",
       value: `${r.product_cost ?? 0} افغانی`,
       icon: Activity,
-      gradient: "from-teal-400 to-teal-600",
+      gradient: "from-[#c9a24d] to-[#806622]", // Solid gold value
       update: data.last_update ?? "08:00 AM",
     },
     {
       title: "مجموع مفاد خالص",
       value: `${r.net_income ?? 0} افغانی`,
       icon: TrendingUp,
-      gradient: "from-green-500 to-emerald-600",
+      gradient: "from-[#16a34a] to-[#15803d]", // Luxury green (profit)
       update: data.last_update ?? "08:00 AM",
     },
   ];
+
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
