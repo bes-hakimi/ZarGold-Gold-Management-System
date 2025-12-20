@@ -32,9 +32,9 @@ export default function TopBar() {
         <div className="flex items-center gap-3 md:gap-6">
           <Fullscreen />
           <NotificationBell />
-          <DownloadAppButton />
         </div>
         <div className="flex items-center gap-5">
+          <DownloadAppButton />
           <ProfileMenu
             name={
               data

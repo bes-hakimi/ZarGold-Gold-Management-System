@@ -23,13 +23,13 @@ export default function EmailStep({ onSubmit, isLoading }: EmailStepProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const validationError = validateEmail(email);
     if (validationError) {
       setError(validationError);
       return;
     }
-    
+
     setError("");
     onSubmit(email);
   };
@@ -58,20 +58,38 @@ export default function EmailStep({ onSubmit, isLoading }: EmailStepProps) {
         />
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <Button
-          type="submit"
-          loading={isLoading}
-          loadingText="در حال ارسال کد..."
-          fullWidth
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
         >
-          ارسال کد تایید
-        </Button>
-      </motion.div>
+          <Button
+            type="submit"
+            loading={isLoading}
+            loadingText="در حال ارسال کد..."
+            fullWidth
+          >
+            ارسال کد تایید
+          </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => window.location.replace("/login")}
+            fullWidth
+          >
+            بازگشت به صفحه ورود
+          </Button>
+        </motion.div>
+
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}

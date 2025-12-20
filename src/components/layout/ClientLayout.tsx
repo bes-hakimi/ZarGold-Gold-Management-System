@@ -61,25 +61,27 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         position="top-right"
         toastOptions={{
           style: {
-            borderRadius: "8px",
-            padding: "8px",
-            fontSize: "14px"
+            borderRadius: "10px",
+            padding: "10px 12px",
+            fontSize: "14px",
+            fontFamily: "Shabnam, system-ui, sans-serif",
           },
           success: {
             style: {
-              background: "var(--primary-600)",
-              color: "white"
-            }
+              background: "var(--color-primary-600)",
+              color: "#fff",
+            },
           },
           error: {
             style: {
-              background: "#ef4444",
-              color: "white"
-            }
+              background: "var(--danger)",
+              color: "#fff",
+            },
           },
           duration: 4000,
         }}
       />
+
     </div>
   );
 }
