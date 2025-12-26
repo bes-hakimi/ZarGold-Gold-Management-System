@@ -13,6 +13,7 @@ import {
   MapPinPlus,
   Users,
   UserPlus,
+  DollarSign,
 } from "lucide-react";
 
 export const sidebarMenuAdmin = [
@@ -66,6 +67,12 @@ export const sidebarMenuAdmin = [
     icon: Bell,
     link: "/notifications",
   },
+  {
+    title: "نرخ بازار",
+    icon: DollarSign,
+    link: "/market-rates",
+  },
+
   {
     title: "گزارشات",
     icon: FileText,

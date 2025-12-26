@@ -14,6 +14,7 @@ import {
   Building,
   Building2,
   MapPinPlus,
+  DollarSign,
 } from "lucide-react";
 
 export const sidebarMenuSuperAdmin = [
@@ -75,6 +76,12 @@ export const sidebarMenuSuperAdmin = [
     icon: Bell,
     link: "/notifications",
   },
+  {
+    title: "نرخ بازار",
+    icon: DollarSign,
+    link: "/market-rates",
+  },
+
   {
     title: "گزارشات",
     icon: FileText,
