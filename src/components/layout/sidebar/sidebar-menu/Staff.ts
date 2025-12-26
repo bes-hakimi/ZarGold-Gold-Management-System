@@ -8,6 +8,7 @@ import {
   PlusCircle,
   List,
   Package,
+  DollarSign,
 } from "lucide-react";
 
 export const sidebarMenuStaff = [
@@ -45,4 +46,10 @@ export const sidebarMenuStaff = [
     icon: Bell,
     link: "/notifications",
   },
+  {
+    title: "نرخ بازار",
+    icon: DollarSign,
+    link: "/market-rates",
+  },
+
 ];
