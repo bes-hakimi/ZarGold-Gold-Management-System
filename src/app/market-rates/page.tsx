@@ -72,7 +72,7 @@ export default function Home() {
         <div className="min-h-screen bg-white border border-gray-200 rounded-lg p-4 md:p-6">
             <Header />
 
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 p-4 md:p-6 rounded-md bg-gradient-to-r from-blue-50 to-cyan-50">
+            <div className="flex flex-col sm:flex-row justify-center md:justify-between items-center md:items-start sm:items-center gap-4 mb-8 p-4 md:p-6 rounded-md bg-gradient-to-r from-blue-50 to-cyan-50">
                 <TabSwitcher activeTab={activeTab} onTabChange={setActiveTab} />
                 <RefreshButton isLoading={isLoading} onRefresh={handleRefresh} />
             </div>

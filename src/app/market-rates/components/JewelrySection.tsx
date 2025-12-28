@@ -10,7 +10,7 @@ interface JewelrySectionProps {
 
 const JewelrySection = ({ jewelries }: JewelrySectionProps) => {
   return (
-    <section className={`backdrop-blur-sm border border-gray-300 rounded-lg p-6 transition-all`}>
+    <section className={`backdrop-blur-sm border border-gray-300 rounded-lg p-4 md:p-6 transition-all`}>
       <div className="flex items-center gap-3 mb-6">
         <div className="p-3 bg-gradient-to-br from-primary-600 to-yellow-600 rounded-xl">
           <Gem className="w-6 h-6 text-white" />

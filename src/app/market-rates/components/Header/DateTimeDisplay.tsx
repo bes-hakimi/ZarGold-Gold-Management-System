@@ -47,7 +47,7 @@ const DateTimeDisplay = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-3 md:gap-2 w-full">
       
       {/* تاریخ افغانی */}
       <div className="flex items-center gap-2 mb-2">
@@ -57,14 +57,14 @@ const DateTimeDisplay = () => {
       </div>
 
       {/* تاریخ میلادی */}
-      <div className="flex items-center justify-center gap-2 mb-2">
+      <div className="flex items-center md:justify-center gap-2 mb-2">
         <Calendar className="w-5 h-5 text-primary-400" />
         <span className="text-text-secondary pb-1">تاریخ (میلادی):</span>
         <span className="font-bold pb-1">{currentDateEN}</span>
       </div>
 
       {/* ساعت */}
-      <div className="flex items-center justify-end gap-2 mb-2">
+      <div className="flex items-center md:justify-end gap-2 mb-2">
         <Clock className="w-5 h-5 text-primary-400" />
         <span className="text-text-secondary pb-1">ساعت:</span>
         <span className="font-bold pb-1">{currentTime}</span>
