@@ -10,7 +10,7 @@ import { Select } from "@/components/ui/Select";
 import { ImageUpload } from "@/components/ui/ImageUpload";
 import { DollarSign, Package, Weight, Palette, X } from "lucide-react";
 import { CancelButton, SaveButton } from "@/components/ui/Button";
-import { purities, Categories, } from "../constants/productOptions";
+import { purities, categories, } from "../constants/productOptions";
 import { useApiPost } from "@/hooks/useApi";
 import { PRODUCT } from "@/endpoints/products";
 import { ApiError } from "@/types/api/api";
@@ -142,7 +142,7 @@ export default function AddProductPage() {
             <Input label="کد محصول" placeholder="لطفا کد محصول را یکتا وارد کنید" value={formData.code} onChange={e => handleInputChange("code", e.target.value)} error={errors.code} required />
             <Input label="قیمت خرید (افغانی)" placeholder="قیمت خرید را وارد کنید" type="number" value={formData.salePrice} onChange={e => handleInputChange("salePrice", e.target.value)} icon={<DollarSign size={16} />} error={errors.salePrice} required />
             <Input label="تعداد موجودی" placeholder="تعداد موجودی را وارد کنید" type="number" value={formData.stock} onChange={e => handleInputChange("stock", e.target.value)} icon={<Package size={16} />} error={errors.stock} required />
-            <Select label="نوع" options={Categories} value={formData.size} onChange={v => handleInputChange("size", v)} error={errors.size} required />
+            <Select label="نوع" options={categories} value={formData.size} onChange={v => handleInputChange("size", v)} error={errors.size} required />
             <Select label="عیار" options={purities} value={formData.type} onChange={v => handleInputChange("type", v)} error={errors.type} required />
           </div>
         </div>
