@@ -10,7 +10,7 @@ import { Select } from "@/components/ui/Select";
 import { ImageUpload } from "@/components/ui/ImageUpload";
 import { DollarSign, Package, Weight, Palette, X } from "lucide-react";
 import { CancelButton, SaveButton } from "@/components/ui/Button";
-import { carpetTypes, carpetSizes, qualityLevels, carpetOrigins } from "../constants/productOptions";
+import { purities, categories, } from "../constants/productOptions";
 import { useApiPost } from "@/hooks/useApi";
 import { PRODUCT } from "@/endpoints/products";
 import { ApiError } from "@/types/api/api";
@@ -19,6 +19,7 @@ export default function AddProductPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
+    code: "",
     type: "",
     origin: "",
     size: "",
@@ -53,6 +54,7 @@ export default function AddProductPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) newErrors.name = "نام محصول الزامی است.";
+    if (!formData.code.trim()) newErrors.code = "کد محصول الزامی است.";
     if (!formData.type) newErrors.type = "نوع محصول الزامی است.";
     if (!formData.origin) newErrors.origin = "مبدأ محصول الزامی است.";
     if (!formData.size) newErrors.size = "سایز محصول الزامی است.";
@@ -89,6 +91,7 @@ export default function AddProductPage() {
 
 
     const productData = {
+      code: formData.code,
       name: formData.name,
       type: formData.type,
       country: formData.origin,
@@ -128,7 +131,7 @@ export default function AddProductPage() {
 
   return (
     <div className="w-full">
-      <PageHeader title="اضافه کردن محصول جدید" description="اطلاعات قالین جدید را وارد کنید" backUrl="/products" />
+      <PageHeader title="اضافه کردن محصول جدید" description="اطلاعات محصول جدید را وارد کنید"/>
 
       <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
         {/* اطلاعات اصلی */}
@@ -136,18 +139,11 @@ export default function AddProductPage() {
           <h3 className="font-semibold mb-4 text-gray-900">اطلاعات اصلی</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input label="نام محصول" placeholder="نام محصول را وارد کنید" value={formData.name} onChange={e => handleInputChange("name", e.target.value)} error={errors.name} required />
+            <Input label="کد محصول" placeholder="لطفا کد محصول را یکتا وارد کنید" value={formData.code} onChange={e => handleInputChange("code", e.target.value)} error={errors.code} required />
             <Input label="قیمت خرید (افغانی)" placeholder="قیمت خرید را وارد کنید" type="number" value={formData.salePrice} onChange={e => handleInputChange("salePrice", e.target.value)} icon={<DollarSign size={16} />} error={errors.salePrice} required />
             <Input label="تعداد موجودی" placeholder="تعداد موجودی را وارد کنید" type="number" value={formData.stock} onChange={e => handleInputChange("stock", e.target.value)} icon={<Package size={16} />} error={errors.stock} required />
-            <Select label="نوع" options={carpetTypes} value={formData.type} onChange={v => handleInputChange("type", v)} error={errors.type} required />
-            <Select label="مبدأ" options={carpetOrigins} value={formData.origin} onChange={v => handleInputChange("origin", v)} error={errors.origin} required />
-            <Select label="کیفیت" options={qualityLevels} value={formData.quality} onChange={v => handleInputChange("quality", v)} error={errors.quality} />
-            <Select label="سایز" options={carpetSizes} value={formData.size} onChange={v => handleInputChange("size", v)} error={errors.size} required />
-            {formData.size === "سفارشی" && (
-              <>
-                <Input label="طول (متر)" placeholder="مثلا: 2" type="number" step="0.1" value={formData.customLength} onChange={e => handleInputChange("customLength", e.target.value)} error={errors.customLength} required />
-                <Input label="عرض (متر)" placeholder="مثلا: 1" type="number" step="0.1" value={formData.customWidth} onChange={e => handleInputChange("customWidth", e.target.value)} error={errors.customWidth} required />
-              </>
-            )}
+            <Select label="نوع" options={categories} value={formData.size} onChange={v => handleInputChange("size", v)} error={errors.size} required />
+            <Select label="عیار" options={purities} value={formData.type} onChange={v => handleInputChange("type", v)} error={errors.type} required />
           </div>
         </div>
 

@@ -9,7 +9,7 @@ interface CurrencySectionProps {
 
 const CurrencySection = ({ currencies }: CurrencySectionProps) => {
   return (
-    <section className={`w-full  backdrop-blur-sm border border-gray-300 rounded-lg p-6 transition-all 
+    <section className={`w-full  backdrop-blur-sm border border-gray-300 rounded-lg p-4 md:p-6 transition-all 
     `}>
       <div className="flex items-center gap-3 mb-6">
         <div className="p-3 bg-gradient-to-br from-primary-600 to-yellow-600 rounded-xl">

@@ -1,5 +1,22 @@
 // src/constants/productOptions.ts
 
+export const categories = [
+  { label: "انگشتر", value: "ring" },
+  { label: "گردنبند", value: "necklace" },
+  { label: "دستبند", value: "bracelet" },
+  { label: "گوشواره", value: "earring" },
+  { label: "سرویس", value: "set" },
+  { label: "سکه / شمش", value: "coin" },
+];
+
+export const purities = [
+  { label: "18 عیار", value: "18" },
+  { label: "21 عیار", value: "21" },
+  { label: "22 عیار", value: "22" },
+  { label: "24 عیار", value: "24" },
+];
+
+
 export const carpetTypes = [
   { value: "قالین دست‌باف", label: "قالین دست‌باف" },
   { value: "قالین ماشینی", label: "قالین ماشینی" },
