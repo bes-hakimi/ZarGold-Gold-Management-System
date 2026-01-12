@@ -16,6 +16,8 @@ export interface SelectedSaleProduct {
   product: ProductType;
   quantity: number;
   salePrice: number;
+  goldRate: number;
+  weight: number; 
 }
 
 export interface CustomerType {

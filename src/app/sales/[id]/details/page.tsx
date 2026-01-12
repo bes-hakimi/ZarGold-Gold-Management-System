@@ -64,7 +64,7 @@ export default function SaleDetailsPage() {
   // آماده‌سازی داده برای InvoicePreview
   const saleDataForInvoice: SaleInitialData = {
     // invoiceNumber: `INV-${sale.id}`,
-    slug:sale.slug,
+    slug: sale.slug,
     created_at: sale.created_at,
     payment_method: sale.payment_method,
     delivery_method: sale.delivery_method,
@@ -76,7 +76,9 @@ export default function SaleDetailsPage() {
     products: sale.items.map((item): SelectedSaleProduct => ({
       quantity: item.qty,
       salePrice: parseFloat(item.main_price),
-      product: item.product
+      product: item.product,
+      goldRate: 0,
+      weight: 0,
     })),
     company_info: companyData?.details,
   };

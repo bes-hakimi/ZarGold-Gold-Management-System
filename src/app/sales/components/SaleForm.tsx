@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { SaveButton, CancelButton } from "@/components/ui/Button";
-import { ProductSelection } from "./ProductSelection";
+import { ProductSelection } from "./product-section/ProductSelection";
 import { CustomerInfo } from "./CustomerInfo";
 import { PaymentAndDelivery } from "./PaymentAndDelivery";
 import { SaleNotes } from "./SaleNotes";
 import { CustomerType } from "@/types/sales/sales";
+import { toast } from "react-hot-toast";
+
 import {
   SaleFormProps,
   SelectedSaleProduct,
@@ -29,7 +31,7 @@ export function SaleForm({ onCancel, initialData, onShowInvoice }: SaleFormProps
     e.preventDefault();
 
     if (!customer?.customer_name || saleProducts.length === 0) {
-      alert("لطفاً اطلاعات مشتری و حداقل یک محصول را وارد کنید");
+      toast.error("لطفاً اطلاعات مشتری و حداقل یک محصول را وارد کنید");
       return;
     }
 
@@ -56,14 +58,14 @@ export function SaleForm({ onCancel, initialData, onShowInvoice }: SaleFormProps
         onChange={setCustomer}
       />
 
-      <PaymentAndDelivery
+      {/* <PaymentAndDelivery
         paymentMethod={paymentMethod}
         deliveryMethod={deliveryMethod}
         onChange={(field, value) => {
           if (field === "payment_method") setPaymentMethod(value);
           if (field === "delivery_method") setDeliveryMethod(value);
         }}
-      />
+      /> */}
 
       <SaleNotes
         notes={description}

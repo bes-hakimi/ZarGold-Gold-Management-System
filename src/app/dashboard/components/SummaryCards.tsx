@@ -25,42 +25,45 @@ export default function SummaryCards() {
   const r = data.report;
 
   const summaryData = [
-    {
-      title: "مجموع محصولات",
-      value: r.total_stock_qty ?? 0,
-      icon: Package,
-      gradient: "from-[#d4af37] to-[#a88732]", // Gold classic
-      update: data.last_update ?? "08:00 AM",
-    },
-    {
-      title: "مجموع فروشات",
-      value: r.total_sales_price ?? 0,
-      icon: DollarSign,
-      gradient: "from-[#f5c542] to-[#c9a24d]", // Bright gold → main gold
-      update: data.last_update ?? "08:00 AM",
-    },
-    {
-      title: "مجموع مصارف",
-      value: `${r.total_expense ?? 0} افغانی`,
-      icon: Activity,
-      gradient: "from-[#b45309] to-[#78350f]", // Dark amber (expense / خروجی پول)
-      update: data.last_update ?? "08:00 AM",
-    },
-    {
-      title: "مجموع اصل پول",
-      value: `${r.product_cost ?? 0} افغانی`,
-      icon: Activity,
-      gradient: "from-[#c9a24d] to-[#806622]", // Solid gold value
-      update: data.last_update ?? "08:00 AM",
-    },
-    {
-      title: "مجموع مفاد خالص",
-      value: `${r.net_income ?? 0} افغانی`,
-      icon: TrendingUp,
-      gradient: "from-[#16a34a] to-[#15803d]", // Luxury green (profit)
-      update: data.last_update ?? "08:00 AM",
-    },
-  ];
+  {
+    title: "مجموع محصولات",
+    value: r.total_stock_qty ?? 0,
+    icon: Package,
+    gradient: "from-[var(--gold-600)] to-[var(--gold-700)]", // نارنجی روشن
+    update: data.last_update ?? "08:00 AM",
+  },
+  {
+    title: "مجموع فروشات",
+    value: r.total_sales_price ?? 0,
+    icon: DollarSign,
+    gradient: "from-[var(--gold-600)] to-[var(--gold-700)]", // نارنجی متوسط → اصلی
+    update: data.last_update ?? "08:00 AM",
+  },
+  {
+    title: "مجموع مصارف",
+    value: `${r.total_expense ?? 0} افغانی`,
+    icon: Activity,
+    gradient: "from-[var(--gold-600)] to-[var(--gold-700)]", // نارنجی تیره / قهوه‌ای
+    update: data.last_update ?? "08:00 AM",
+  },
+  {
+    title: "مجموع اصل پول",
+    value: `${r.product_cost ?? 0} افغانی`,
+    icon: Activity,
+    gradient: "from-[var(--gold-600)] to-[var(--gold-700)]", // طلایی لوکس
+    update: data.last_update ?? "08:00 AM",
+  },
+  {
+    title: "مجموع مفاد خالص",
+    value: `${r.net_income ?? 0} افغانی`,
+    icon: TrendingUp,
+    gradient: "from-[var(--success)] to-[var(--success)]", // سبز لوکس
+    update: data.last_update ?? "08:00 AM",
+  },
+];
+
+
+
 
 
   return (
