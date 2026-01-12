@@ -8,11 +8,13 @@ import ExpenseChart from "./components/ExpenseChart";
 import RecentTransactions from "./components/RecentTransactions";
 import Notifications from "./components/Notifications";
 import InventorySummary from "./components/InventorySummary";
+import MarketSummaryHeader from "./components/MarketSummaryHeader";
 
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <DashboardHeader />
+      <MarketSummaryHeader />
       <SummaryCards />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

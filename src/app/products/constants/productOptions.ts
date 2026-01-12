@@ -16,6 +16,19 @@ export const purities = [
   { label: "24 عیار", value: "24" },
 ];
 
+export const goldProducerCountries = [
+  { label: "افغانستان", value: "AF" },
+  { label: "ایران", value: "IR" },
+  { label: "ترکیه", value: "TR" },
+  { label: "چین", value: "CN" },
+  { label: "روسیه", value: "RU" },
+  { label: "استرالیا", value: "AU" },
+  { label: "کانادا", value: "CA" },
+  { label: "آفریقای جنوبی", value: "ZA" },
+  { label: "ازبکستان", value: "UZ" },
+];
+
+
 
 export const carpetTypes = [
   { value: "قالین دست‌باف", label: "قالین دست‌باف" },

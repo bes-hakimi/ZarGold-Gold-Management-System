@@ -57,16 +57,31 @@ body {
 
 :root {
   /* Gold (Primary) */
-  --gold-50:  #fff9e6;
+  /* --gold-50:  #fff9e6;
   --gold-100: #ffefbf;
   --gold-200: #ffe08a;
   --gold-300: #ffd04d;
   --gold-400: #e6b800;
-  --gold-500: #c9a24d; /* MAIN GOLD */
+  --gold-500: #c9a24d; 
   --gold-600: #a88732;
   --gold-700: #806622;
   --gold-800: #594615;
-  --gold-900: #33270b;
+  --gold-900: #33270b; */
+
+--gold-50:  #fff5f0;  
+--gold-100: #ffe8d9;
+--gold-200: #ffd1b3;
+--gold-300: #ffb88c;
+--gold-400: #ff9f66;
+--gold-500: #ff8640; 
+--gold-600: #e66f2f;
+--gold-700: #b95721;
+--gold-800: #8a4018;
+--gold-900: #5c280f;
+
+
+
+
 
   /* Neutral (Light UI) */
   --neutral-50:  #ffffff;
