@@ -25,7 +25,7 @@ const SidebarFooter = ({ collapsed }: SidebarFooterProps) => {
     <div className="border-t border-gray-200 p-4 space-y-2">
       <button
         onClick={handleProfile}
-        className="flex items-center space-x-2 w-full text-gray-700 hover:text-primary-500 hover:bg-primary-100 p-2 rounded-lg transition"
+        className="flex items-center space-x-2 w-full text-white hover:text-primary-500 hover:bg-primary-100 p-2 rounded-lg transition"
       >
         <User size={20} />
         {!collapsed && <span>پروفایل</span>}
@@ -33,7 +33,7 @@ const SidebarFooter = ({ collapsed }: SidebarFooterProps) => {
 
       <button
         onClick={handleLogout}
-        className="flex items-center space-x-2 w-full text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition"
+        className="flex items-center space-x-2 w-full text-white hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition"
       >
         <LogOut size={20} />
         {!collapsed && <span>خروج</span>}

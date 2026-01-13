@@ -34,7 +34,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const showTopBar = !hidePaths.includes(pathname);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex h-screen">
       {/* ✅ TopBar فقط اگر مسیر مجاز باشد */}
       {showTopBar && <TopBar />}
 
