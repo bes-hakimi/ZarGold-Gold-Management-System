@@ -1,303 +1,263 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { PageHeader } from "@/components/ui/PageHeader";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
-import { Select } from "@/components/ui/Select";
-import { ImageUpload } from "@/components/ui/ImageUpload";
-import { DollarSign, Package, Weight, Palette } from "lucide-react";
-import { CancelButton, SaveButton, DeleteButton } from "@/components/ui/Button";
-import { carpetTypes, carpetSizes, qualityLevels, carpetOrigins } from "../../constants/productOptions";
-import { useApiGet, useApiPut, useApiDeleteDynamic } from "@/hooks/useApi";
-import { ProductType } from "@/types/product/product";
-import { PRODUCT } from "@/endpoints/products";
-import { toast } from "react-hot-toast";
-import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
-import { ApiError } from "@/types/api/api";
-import { ContentLoader } from "@/components/loading/DataLoading";
+import { useState, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { Input } from '@/components/ui/Input';
+import { Select } from '@/components/ui/Select';
+import { Textarea } from '@/components/ui/Textarea';
+import { ImageUpload } from '@/components/ui/ImageUpload';
+import { DollarSign, Package } from 'lucide-react';
+import { CancelButton, SaveButton, DeleteButton } from '@/components/ui/Button';
+import { purities, categories, goldProducerCountries } from '../../constants/productOptions';
+import { useApiGet, useApiPut, useApiDeleteDynamic } from '@/hooks/useApi';
+import { PRODUCT } from '@/endpoints/products';
+import { ApiError } from '@/types/api/api';
+import DeleteConfirmationModal from '@/components/ui/DeleteConfirmationModal';
+import { ProductType } from '@/types/product/product';
+import { ContentLoader } from '@/components/loading/DataLoading';
 
 export default function EditProductPage() {
-    const params = useParams();
-    const router = useRouter();
-    const productId = Number(params.id);
+  const params = useParams();
+  const router = useRouter();
+  const productId = Number(params.id);
 
-    const { data: productData, isLoading, isError } = useApiGet<ProductType>(
-        `product-${productId}`,
-        PRODUCT.details(productId)
-    );
+  const { data: productData, isLoading, isError } = useApiGet<ProductType>(
+    `product-${productId}`,
+    PRODUCT.details(productId)
+  );
 
-    const [formData, setFormData] = useState<Partial<ProductType>>({});
-    const [mainImageUrl, setMainImageUrl] = useState<string>("");
-    const [galleryUrls, setGalleryUrls] = useState<string[]>([]);
-    const [isSaving, setIsSaving] = useState(false);
-    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    code: '',
+    type: '',
+    country: '',
+    purity: '',
+    stock_qty: 0,
+    main_price: 0,
+    rate: 0,
+    description: '',
+  });
 
-    const putProduct = useApiPut<ProductType, Partial<ProductType>>(PRODUCT.update(productId));
-    const deleteProduct = useApiDeleteDynamic<void>();
+  const [image, setImage] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-    useEffect(() => {
-        if (productData) {
-            setFormData(productData);
-            setMainImageUrl(productData.image || "");
-            setGalleryUrls(
-                Array.isArray(productData.gallery_image)
-                    ? productData.gallery_image
-                    : productData.gallery_image
-                        ? [productData.gallery_image]
-                        : []
-            );
-        }
-    }, [productData]);
+  const putProduct = useApiPut<ProductType, typeof formData>(PRODUCT.update(productId));
+  const deleteProduct = useApiDeleteDynamic<void>();
 
-    const handleInputChange = <K extends keyof ProductType>(field: K, value: ProductType[K]) => {
-        setFormData((prev) => ({ ...prev, [field]: value }));
+  useEffect(() => {
+    if (productData) {
+      setFormData({
+        name: productData.name || '',
+        code: productData.code || '',
+        type: productData.type || '',
+        country: productData.country || '',
+        purity: productData.purity || '',
+        stock_qty: productData.stock_qty || 0,
+        main_price: productData.main_price || 0,
+        rate: productData.rate || 0,
+        description: productData.description || '',
+      });
+      setImage(productData.image || null);
+    }
+  }, [productData]);
+
+  const handleInputChange = <K extends keyof typeof formData>(field: K, value: typeof formData[K]) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    setErrors(prev => ({ ...prev, [field]: '' }));
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name.trim()) newErrors.name = 'نام محصول الزامی است.';
+    if (!formData.code.trim()) newErrors.code = 'کد محصول الزامی است.';
+    if (!formData.type) newErrors.type = 'نوع محصول الزامی است.';
+    if (!formData.country) newErrors.country = 'کشور تولیدکننده الزامی است.';
+    if (!formData.purity) newErrors.purity = 'عیار محصول الزامی است.';
+    if (!formData.stock_qty || formData.stock_qty <= 0) newErrors.stock_qty = 'موجودی باید بیشتر از صفر باشد.';
+    if (!formData.main_price || formData.main_price <= 0) newErrors.main_price = 'قیمت فروش الزامی است.';
+    if (!formData.rate || formData.rate <= 0) newErrors.rate = 'نرخ روز طلا الزامی است.';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      toast.error('لطفاً خطاهای فرم را اصلاح کنید.');
+      return;
+    }
+
+    setIsSaving(true);
+
+    const payload = {
+      ...formData,
+      ...(image && { image }),
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSaving(true);
+    try {
+      await putProduct.mutateAsync(payload);
+      toast.success('محصول با موفقیت ویرایش شد!');
+      router.push('/products/list');
+    } catch (error) {
+      const err = error as ApiError;
+      toast.error(err.response?.data?.message || err.message || 'خطا در ویرایش محصول');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
-        try {
-            await putProduct.mutateAsync({
-                ...formData,
-                image: mainImageUrl,
-                // gallery_image: galleryUrls,
-            });
+  const handleDeleteConfirm = async () => {
+    setIsDeleting(true);
+    try {
+      await deleteProduct.mutateAsync(PRODUCT.delete(productId));
+      toast.success('محصول با موفقیت حذف شد!');
+      router.push('/products/list');
+    } catch (error) {
+      const err = error as ApiError;
+      toast.error(err.response?.data?.message || err.message || 'خطا در حذف محصول');
+    } finally {
+      setIsDeleting(false);
+      setIsDeleteOpen(false);
+    }
+  };
 
-            toast.success("محصول با موفقیت ویرایش شد!");
-            router.push("/products/list");
-        } catch (error) {
-            const err = error as ApiError;
-            const errorMessage =
-                err?.response?.data?.message ||
-                err?.response?.data?.detail ||
-                err?.message ||
-                "خطا در ویرایش محصول";
-
-            toast.error(errorMessage);
-        } finally {
-            setIsSaving(false);
-        }
-    };
-
-
-    const handleDeleteConfirm = async () => {
-        setIsDeleting(true);
-
-        try {
-            await deleteProduct.mutateAsync(PRODUCT.delete(productId));
-            toast.success("محصول با موفقیت حذف شد!");
-            router.push("/products/list");
-        } catch (error) {
-            const err = error as ApiError;
-            const errorMessage =
-                err?.response?.data?.message ||
-                err?.response?.data?.detail ||
-                err?.message ||
-                "خطا در حذف محصول";
-
-            toast.error(errorMessage);
-        } finally {
-            setIsDeleting(false);
-            setIsDeleteOpen(false);
-        }
-    };
-
-
+  if (isLoading) {
     return (
-        <div className="w-full">
-            {/* ✅ PageHeader همیشه نمایش داده شود */}
-            <PageHeader
-                title="ویرایش محصول"
-                description="اطلاعات قالین را ویرایش کنید"
-                backUrl="/products"
-            />
-
-            {/* ✅ وضعیت‌ها */}
-            {isLoading ? (
-                <div className="flex w-full h-full items-center justify-center">
-                    <ContentLoader />
-                </div>
-            ) : isError ? (
-                <p className="text-red-500 p-6">خطا در بارگذاری محصول</p>
-            ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* اطلاعات اصلی */}
-                    <div className="bg-white rounded-lg p-4 md:p-6 border border-gray-200">
-                        <h3 className="font-semibold mb-4 text-gray-900">اطلاعات اصلی</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Input
-                                label="نام محصول"
-                                value={formData.name || ""}
-                                onChange={(e) => handleInputChange("name", e.target.value)}
-                                required
-                            />
-                            <Input
-                                label="قیمت فروش"
-                                type="number"
-                                value={formData.main_price || ""}
-                                onChange={(e) => handleInputChange("main_price", e.target.value)}
-                                icon={<DollarSign size={16} />}
-                                required
-                            />
-                            <Input
-                                label="تعداد موجودی"
-                                type="number"
-                                value={formData.stock_qty || ""}
-                                onChange={(e) =>
-                                    handleInputChange("stock_qty", Number(e.target.value))
-                                }
-                                icon={<Package size={16} />}
-                                required
-                            />
-                            <Select
-                                label="نوع"
-                                options={carpetTypes}
-                                value={formData.type || ""}
-                                onChange={(v) => handleInputChange("type", v)}
-                            />
-                            <Select
-                                label="مبدأ"
-                                options={carpetOrigins}
-                                value={formData.country || ""}
-                                onChange={(v) => handleInputChange("country", v)}
-                            />
-                            <Select
-                                label="کیفیت"
-                                options={qualityLevels}
-                                value={formData.quality || ""}
-                                onChange={(v) => handleInputChange("quality", v)}
-                            />
-                            <Select
-                                label="سایز"
-                                options={carpetSizes}
-                                value={formData.size || ""}
-                                onChange={(v) => handleInputChange("size", v)}
-                            />
-                        </div>
-                    </div>
-
-                    {/* مشخصات فنی */}
-                    <div className="bg-white rounded-lg p-4 md:p-6 border border-gray-200">
-                        <h3 className="font-semibold mb-4 text-gray-900">مشخصات فنی</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <Input
-                                label="وزن (کیلوگرم)"
-                                type="number"
-                                step="0.1"
-                                value={formData.weight || ""}
-                                onChange={(e) =>
-                                    handleInputChange("weight", e.target.value)
-                                }
-                                icon={<Weight size={16} />}
-                            />
-                            <Input
-                                label="رنگ اصلی"
-                                value={formData.main_color || ""}
-                                onChange={(e) =>
-                                    handleInputChange("main_color", e.target.value)
-                                }
-                                icon={<Palette size={16} />}
-                            />
-                            <Input
-                                label="قدمت (سال)"
-                                type="number"
-                                value={formData.age || ""}
-                                onChange={(e) =>
-                                    handleInputChange("age", Number(e.target.value))
-                                }
-                            />
-                        </div>
-                    </div>
-
-                    {/* تصاویر */}
-                    <div className="bg-white rounded-lg p-4 md:p-6 border border-gray-200">
-                        <h3 className="font-semibold mb-4 text-gray-900">تصاویر محصول</h3>
-                        <ImageUpload
-                            label="تصویر اصلی"
-                            defaultImageUrl={mainImageUrl}
-                            onImageSelect={(url) => setMainImageUrl(url || "")}
-                        />
-                        {/* <ImageUpload
-                            label="گالری تصاویر"
-                            defaultImageUrl=""
-                            onImageSelect={(url) => {
-                                if (url) setGalleryUrls((prev) => [...prev, url]);
-                            }}
-                        /> */}
-
-                        {/* ✅ فقط وقتی گالری واقعاً مقدار دارد */}
-                        {/* {Array.isArray(galleryUrls) && galleryUrls.length > 0 && (
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                                {galleryUrls.map((img, i) => (
-                                    <div key={i} className="relative group">
-                                        <img
-                                            src={img}
-                                            alt={`Gallery ${i}`}
-                                            className="w-full h-24 object-cover rounded-md border border-gray-200"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setGalleryUrls((prev) =>
-                                                    prev.filter((_, idx) => idx !== i)
-                                                )
-                                            }
-                                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                                        >
-                                            <X size={12} />
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        )} */}
-                    </div>
-
-                    {/* توضیحات */}
-                    <div className="bg-white rounded-lg p-4 md:p-6 border border-gray-200">
-                        <h3 className="font-semibold mb-4 text-gray-900">توضیحات</h3>
-                        <Textarea
-                            value={formData.description || ""}
-                            onChange={(v) => handleInputChange("description", v)}
-                            rows={6}
-                        />
-                    </div>
-
-                    {/* دکمه‌ها */}
-                    <div className="flex gap-4 justify-end">
-                        <DeleteButton
-                            type="button"
-                            size="md"
-                            onClick={() => setIsDeleteOpen(true)}
-                        >
-                            حذف
-                        </DeleteButton>
-                        <CancelButton
-                            type="button"
-                            size="md"
-                            onClick={() => router.push("/products")}
-                        >
-                            انصراف
-                        </CancelButton>
-                        <SaveButton size="md" type="submit" loading={isSaving}>
-                            ذخیره تغییرات
-                        </SaveButton>
-                    </div>
-                </form>
-            )}
-
-            {/* ✅ Modal حذف */}
-            <DeleteConfirmationModal
-                isOpen={isDeleteOpen}
-                onClose={() => setIsDeleteOpen(false)}
-                onConfirm={handleDeleteConfirm}
-                isLoading={isDeleting}
-                itemName={formData.name}
-            />
-        </div>
+      <div className="flex w-full h-full items-center justify-center">
+        <ContentLoader />
+      </div>
     );
+  }
 
+  if (isError) {
+    return <p className="text-red-500 p-6">خطا در بارگذاری محصول</p>;
+  }
+
+  return (
+    <div className="w-full">
+      <PageHeader title="ویرایش محصول" description="اطلاعات محصول را ویرایش کنید" backUrl="/products" />
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* اطلاعات اصلی */}
+        <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <h3 className="font-semibold mb-4 text-gray-900">اطلاعات اصلی</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input
+              label="نام محصول"
+              value={formData.name}
+              onChange={e => handleInputChange('name', e.target.value)}
+              error={errors.name}
+              required
+            />
+            <Input
+              label="کد محصول"
+              value={formData.code}
+              onChange={e => handleInputChange('code', e.target.value)}
+              error={errors.code}
+              required
+            />
+            <Input
+              label="تعداد موجودی"
+              type="number"
+              value={formData.stock_qty}
+              onChange={e => handleInputChange('stock_qty', Number(e.target.value))}
+              icon={<Package size={16} />}
+              error={errors.stock_qty}
+              required
+            />
+            <Input
+              label="قیمت فروش (افغانی)"
+              type="number"
+              value={formData.main_price}
+              onChange={e => handleInputChange('main_price', Number(e.target.value))}
+              icon={<DollarSign size={16} />}
+              error={errors.main_price}
+              required
+            />
+            <Select
+              label="نوع"
+              options={categories}
+              value={formData.type}
+              onChange={v => handleInputChange('type', v)}
+              error={errors.type}
+              required
+            />
+            <Select
+              label="کشور تولیدکننده"
+              options={goldProducerCountries}
+              value={formData.country}
+              onChange={v => handleInputChange('country', v)}
+              error={errors.country}
+              required
+            />
+            <Select
+              label="عیار"
+              options={purities}
+              value={formData.purity}
+              onChange={v => handleInputChange('purity', v)}
+              error={errors.purity}
+              required
+            />
+            <Input
+              label="نرخ روز طلا (افغانی)"
+              type="number"
+              value={formData.rate}
+              onChange={e => handleInputChange('rate', Number(e.target.value))}
+              error={errors.rate}
+              required
+            />
+          </div>
+        </div>
+
+        {/* تصویر */}
+        <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <h3 className="font-semibold mb-4 text-gray-900">تصویر محصول</h3>
+          <ImageUpload
+            label="تصویر اصلی"
+            defaultImageUrl={image || ''}
+            onImageSelect={url => setImage(url || null)}
+          />
+        </div>
+
+        {/* توضیحات */}
+        <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <h3 className="font-semibold mb-4 text-gray-900">توضیحات</h3>
+          <Textarea
+            value={formData.description}
+            onChange={v => handleInputChange('description', v)}
+            rows={5}
+          />
+        </div>
+
+        {/* دکمه‌ها */}
+        <div className="flex justify-end gap-4">
+          <DeleteButton type="button" onClick={() => setIsDeleteOpen(true)}>
+            حذف
+          </DeleteButton>
+          <CancelButton type="button" onClick={() => router.push('/products')}>
+            انصراف
+          </CancelButton>
+          <SaveButton type="submit" loading={isSaving}>
+            ذخیره تغییرات
+          </SaveButton>
+        </div>
+      </form>
+
+      {/* Modal حذف */}
+      <DeleteConfirmationModal
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        isLoading={isDeleting}
+        itemName={formData.name}
+      />
+    </div>
+  );
 }

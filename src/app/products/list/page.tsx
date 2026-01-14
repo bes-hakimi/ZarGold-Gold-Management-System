@@ -113,8 +113,8 @@ export default function ProductsPage() {
       ),
     },
     {
-      key: "size",
-      label: "سایز",
+      key: "purity",
+      label: "عیار",
       sortable: true,
       render: (value) => (
         <span className="font-medium">
