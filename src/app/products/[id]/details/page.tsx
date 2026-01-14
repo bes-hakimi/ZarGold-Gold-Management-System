@@ -13,7 +13,6 @@ import { PRODUCT } from "@/endpoints/products";
 import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import { ProductType } from "@/types/product/product";
 import InfoCard from "./components/InfoCard";
-import StockCard from "./components/StockCard";
 import { ApiError } from "@/types/api/api";
 import { ContentLoader } from "@/components/loading/DataLoading";
 
@@ -140,24 +139,14 @@ export default function ProductDetailPage() {
                                     />
                                 )}
 
-                                {product.size && (
-                                    <InfoCard icon={<Ruler size={20} />} label="سایز" value={product.size} />
+                                {product.purity && (
+                                    <InfoCard icon={<Ruler size={20} />} label="سایز" value={product.purity} />
                                 )}
-                                {product.quality && (
-                                    <InfoCard icon={<Star size={20} />} label="کیفیت" value={product.quality} />
+                                {product.code && (
+                                    <InfoCard icon={<Star size={20} />} label="کیفیت" value={product.code} />
                                 )}
                                 {product.country && (
                                     <InfoCard icon={<MapPin size={20} />} label="مبدأ" value={product.country} />
-                                )}
-                                {product.stock_qty != null && <StockCard stock={product.stock_qty} />}
-                                {product.main_color && (
-                                    <InfoCard icon={<Palette size={20} />} label="رنگ اصلی" value={product.main_color} />
-                                )}
-                                {product.weight && (
-                                    <InfoCard icon={<Weight size={20} />} label="وزن" value={`${product.weight} کیلوگرم`} />
-                                )}
-                                {product.age && (
-                                    <InfoCard icon={<Calendar size={20} />} label="قدمت" value={`${product.age} سال`} />
                                 )}
                             </div>
 
