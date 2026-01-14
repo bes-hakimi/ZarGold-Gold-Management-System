@@ -39,13 +39,13 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   return (
     <aside
       className={clsx(
-        'bg-white shadow-sm border-r border-gray-200 h-full flex flex-col justify-between transition-all duration-300',
+        'bg-linear-to-b from-slate-900 to-gray-900 shadow-sm border-r border-gray-200 h-full flex flex-col justify-between transition-all duration-300',
         collapsed ? 'w-16' : 'w-64'
       )}
     >
       <SidebarHeader collapsed={collapsed} onToggle={toggleCollapse} />
 
-      <nav className="flex-1 overflow-y-auto px-2 space-y-2">
+      <nav className="flex-1 overflow-y-auto px-2 space-y-2 no-scroll">
         {sidebarMenu.map((item) => (
           <SidebarItem
             key={item.title}

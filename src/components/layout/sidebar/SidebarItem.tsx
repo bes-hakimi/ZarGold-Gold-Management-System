@@ -42,7 +42,7 @@ const SidebarItem = ({
         <button
           onClick={onToggle}
           className={clsx(
-            `flex items-center justify-between p-2 rounded-lg text-gray-700 hover:bg-primary-100 hover:text-primary-700 transition ${collapsed ? 'w-fit' : 'w-full'}`,
+            `flex items-center justify-between p-2 rounded-lg text-white hover:bg-primary-100 hover:text-primary-700 transition ${collapsed ? 'w-fit' : 'w-full'}`,
             isOpen && 'bg-primary-100 text-primary-700'
           )}
         >
@@ -73,7 +73,7 @@ const SidebarItem = ({
   return (
     <Link
       href={link!}
-      className={`${collapsed ? 'w-fit' : 'w-full'} flex items-center space-x-2 p-2 rounded-lg text-gray-700 hover:bg-primary-100 hover:text-primary-700 transition`}
+      className={`${collapsed ? 'w-fit' : 'w-full'} flex items-center space-x-2 p-2 rounded-lg text-white hover:bg-primary-100 hover:text-primary-700 transition`}
     >
       <Icon size={20} />
       {!collapsed && (
