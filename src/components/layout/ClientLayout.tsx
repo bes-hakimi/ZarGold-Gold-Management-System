@@ -34,28 +34,28 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const showTopBar = !hidePaths.includes(pathname);
 
   return (
-    <div className="flex h-screen">
+    <>
       {/* ✅ TopBar فقط اگر مسیر مجاز باشد */}
-      {showTopBar && <TopBar />}
-
-      <div className={`flex flex-row-reverse flex-1 overflow-hidden ${showTopBar ? "pt-16 md:pt-[56px]" : ""} `}>
-        {/* Sidebar فقط برای دسکتاپ */}
+      <div className="flex">
         {showTopBar && (
-          <div className="fixed top-[56px] bottom-0 right-0 hidden sm:block z-10">
+          <div className="hidden sm:block z-10">
             <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
           </div>
         )}
 
-        {/* بخش محتوا */}
-        <main
-          className={`flex-1 overflow-y-auto transition-all duration-300 ${showTopBar && (collapsed ? "sm:mr-[4rem]" : "sm:mr-[16rem]")} ${showTopBar ? "p-3 md:p-6 pb-36 md:pb-16" : ""}`}
-        >
-          {children}
-        </main>
 
-        {/* 🔹 نوار پایین فقط برای موبایل */}
-        {showTopBar && <MobileBottomBar />}
+        <div className="flex flex-col h-screen w-full">
+          {showTopBar && <TopBar />}
+          <main
+            className={`overflow-y-auto transition-all duration-300 ${showTopBar ? "p-3 md:p-6 pb-36 md:pb-16" : "h-screen "}`}
+          >
+            {children}
+          </main>
+        </div>
+
       </div>
+
+      {showTopBar && <MobileBottomBar />}
 
       <Toaster
         position="top-right"
@@ -82,6 +82,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         }}
       />
 
-    </div>
+    </>
   );
 }

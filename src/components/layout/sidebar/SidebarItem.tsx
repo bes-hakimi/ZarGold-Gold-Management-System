@@ -12,18 +12,19 @@ interface SidebarItemProps {
   link?: string;
   submenu?: { title: string; link: string }[];
   collapsed: boolean;
-
+  pathname: string;
   // اضافه شده ↓↓↓
   isOpen?: boolean;
   onToggle?: () => void;
 }
 
-const SidebarItem = ({ 
-  title, 
-  icon: Icon, 
-  link, 
-  submenu, 
+const SidebarItem = ({
+  title,
+  icon: Icon,
+  link,
+  submenu,
   collapsed,
+  pathname,
   isOpen = false,
   onToggle
 }: SidebarItemProps) => {
@@ -32,6 +33,11 @@ const SidebarItem = ({
     'notifications',
     NOTIFICATION.list
   );
+
+  const isActive =
+    (link && pathname === link) ||
+    submenu?.some(sub => pathname.startsWith(sub.link));
+
 
   const unreadCount = notifications?.data.filter(n => !n.is_read).length ?? 0;
 
@@ -42,10 +48,16 @@ const SidebarItem = ({
         <button
           onClick={onToggle}
           className={clsx(
-            `flex items-center justify-between p-2 rounded-lg text-white hover:bg-primary-100 hover:text-primary-700 transition ${collapsed ? 'w-fit' : 'w-full'}`,
-            isOpen && 'bg-primary-100 text-primary-700'
+            'flex items-center justify-between p-2 rounded-lg transition-all hover:scale-105',
+            collapsed ? 'w-fit' : 'w-full',
+
+            isActive
+              ? 'bg-primary-100 text-primary-700'
+              : 'text-white hover:bg-primary-100 hover:text-primary-700'
           )}
         >
+
+
           <div className="flex items-center space-x-2">
             <Icon size={20} />
             {!collapsed && <span>{title}</span>}
@@ -73,9 +85,18 @@ const SidebarItem = ({
   return (
     <Link
       href={link!}
-      className={`${collapsed ? 'w-fit' : 'w-full'} flex items-center space-x-2 p-2 rounded-lg text-white hover:bg-primary-100 hover:text-primary-700 transition`}
+      className={clsx(
+        'flex items-center space-x-2 p-2 rounded-lg transition-all hover:scale-105',
+        collapsed ? 'w-fit' : 'w-full',
+
+        isActive
+          ? 'bg-primary-100 text-primary-700'
+          : 'text-white hover:bg-primary-100 hover:text-primary-700'
+      )}
     >
-      <Icon size={20} />
+
+      <Icon size={20} className="text-current" />
+
       {!collapsed && (
         <div className="flex items-center space-x-2 relative w-full">
           <span>{title}</span>
