@@ -18,3 +18,10 @@ export interface Jewelry {
 }
 
 export type TabType = 'currencies' | 'jewelries';
+
+export interface CurrencyApiResponse {
+  source: string;
+  base: string;
+  date: string;
+  rates_to_afn: Record<string, number>;
+}
