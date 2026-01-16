@@ -35,7 +35,7 @@ export function InvoiceSummary({ saleData }: InvoicePreviewProps) {
       <div className="flex justify-between items-start mb-3 border-b border-gray-300 pb-2">
         <div>
           <img
-            src="/images/logo/carpet-logo.png"
+            src={saleData.company_info?.company_logo || "/images/logo/zar-gold.png"}
             alt="لگوی شرکت"
             className="w-12 h-12 object-contain print:w-10 print:h-10"
           />
@@ -140,9 +140,14 @@ export function InvoiceSummary({ saleData }: InvoicePreviewProps) {
                     <p className="font-semibold text-gray-800 text-xs">
                       {item.product?.name || "بدون عنوان"}
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">
-                      کد: {item.product?.slug || "-"}
-                    </p>
+                    <div className="flex flex-nowrap gap-1 items-center text-xs text-gray-600 mt-1 ">
+                      <p>عیار: {item.product?.purity}</p>
+                      |
+                      <p>وزن: {item.product?.weight}</p>
+                      |
+                      <p>نوع: {item.product?.type}</p>
+
+                    </div>
                   </div>
                 </td>
                 <td className="text-xs py-2 px-2 text-center text-gray-700 border border-gray-300">
@@ -202,16 +207,6 @@ export function InvoiceSummary({ saleData }: InvoicePreviewProps) {
                 <Phone className="w-3 h-3 ml-1" />
                 {saleData.company_info?.phone}
               </p>
-            </div>
-          </div>
-
-          <div className="flex-1 text-right">
-            <p className="text-xs font-bold text-gray-800 mb-1">
-              معلومات پرداخت:
-            </p>
-            <div className="text-xs text-gray-600 space-y-1">
-              <p>پرداخت: {saleData.payment_method}</p>
-              <p>تحویل: {saleData.delivery_method}</p>
             </div>
           </div>
 

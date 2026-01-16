@@ -37,11 +37,11 @@ export interface Customer {
 
 export interface SaleList {
   id: number;
-  payment_method: string;
   slug: string | null;
   delivery_method: string;
   description: string;
   created_at: string;
   customer: Customer;
+  customer_phone: string;
   items: SaleItem[];
 }

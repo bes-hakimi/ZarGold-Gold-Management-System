@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import { formatNumber } from "./NumberFormatter";
+import { formatNumber } from "../NumberFormatter";
 import { Jewelry } from "@/types/market-rates/rates";
 
 interface JewelryCardProps {

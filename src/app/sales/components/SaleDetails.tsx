@@ -121,15 +121,14 @@ export function SaleDetails({ saleData }: SaleDetailsProps) {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
                     <h4 className="font-medium text-gray-900">{product.name}</h4>
-                    <p className="text-sm text-gray-600">کد: {product.slug || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">کد: {product.code || product.slug || "ندارد"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">اندازه: {product.size || "ندارد"}</p>
-                    <p className="text-sm text-gray-600">رنگ: {product.main_color || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">کشور تولید کننده: {product.country || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">عیار: {product.purity || "ندارد"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">کیفیت: {product.quality || "ندارد"}</p>
-                    <p className="text-sm text-gray-600">جنس: {product.type || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">نوع: {product.type || "ندارد"}</p>
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-medium">تعداد: {item.qty}</p>
@@ -176,24 +175,7 @@ export function SaleDetails({ saleData }: SaleDetailsProps) {
           اطلاعات تکمیلی
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center">
-                <CreditCard className="ml-2 w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-600">نحوه پرداخت:</span>
-              </div>
-              <span className="font-medium">{saleData.payment_method || "ثبت نشده"}</span>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center">
-                <Truck className="ml-2 w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-600">نحوه تحویل:</span>
-              </div>
-              <span className="font-medium">{saleData.delivery_method || "ثبت نشده"}</span>
-            </div>
-          </div>
+        <div className="grid grid-cols-1">
 
           {saleData.description && (
             <div className="bg-gray-50 rounded-lg p-4">

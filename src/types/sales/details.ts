@@ -4,8 +4,8 @@ export interface SaleDetailsType {
   id: number;
   slug:string;
   invoiceNumber: string; // اگر در API نیست، در کامپوننت تولید می‌شود
-  payment_method: string;
-  delivery_method: string;
+  rate: string;
+  weight: string;
   description: string;
   created_at: string;
 
@@ -22,6 +22,7 @@ export interface SaleDetailsType {
     main_price: string;
     product: {
       id: number;
+      code: string;
       name: string;
       slug: string;
       type: string;
@@ -34,6 +35,8 @@ export interface SaleDetailsType {
       gallery_image: string | null;
       description: string;
       weight: string;
+      rate: string;
+      purity: string;
       main_color: string;
       age: number;
       created_at: string;

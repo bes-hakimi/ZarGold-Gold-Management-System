@@ -18,8 +18,6 @@ import {
 export function SaleForm({ onCancel, initialData, onShowInvoice }: SaleFormProps) {
   const [saleProducts, setSaleProducts] = useState<SelectedSaleProduct[]>([]);
   const [customer, setCustomer] = useState<CustomerType | null>(initialData?.customer || null);
-  const [paymentMethod, setPaymentMethod] = useState(initialData?.payment_method || "");
-  const [deliveryMethod, setDeliveryMethod] = useState(initialData?.delivery_method || "");
   const [description, setDescription] = useState(initialData?.description || "");
 
   useEffect(() => {
@@ -37,8 +35,6 @@ export function SaleForm({ onCancel, initialData, onShowInvoice }: SaleFormProps
 
     const submitData: SaleInitialData = {
       customer,
-      payment_method: paymentMethod,
-      delivery_method: deliveryMethod,
       description,
       products: saleProducts,
     };
@@ -58,15 +54,6 @@ export function SaleForm({ onCancel, initialData, onShowInvoice }: SaleFormProps
         onChange={setCustomer}
       />
 
-      {/* <PaymentAndDelivery
-        paymentMethod={paymentMethod}
-        deliveryMethod={deliveryMethod}
-        onChange={(field, value) => {
-          if (field === "payment_method") setPaymentMethod(value);
-          if (field === "delivery_method") setDeliveryMethod(value);
-        }}
-      /> */}
-
       <SaleNotes
         notes={description}
         onChange={(field, value) => setDescription(value)}
@@ -83,8 +70,6 @@ export function SaleForm({ onCancel, initialData, onShowInvoice }: SaleFormProps
             !customer?.customer_name ||
             !customer?.customer_phone ||
             !customer?.customer_address ||
-            !paymentMethod ||
-            !deliveryMethod ||
             !saleProducts.length
           }
         >

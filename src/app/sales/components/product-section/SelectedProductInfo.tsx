@@ -1,6 +1,6 @@
 "use client";
 
-import { DollarSign, Package, Ruler, Layers, Hash } from "lucide-react";
+import { DollarSign, Package, Percent , Layers, Hash, Flag } from "lucide-react";
 import { ProductType } from "@/types/sales/sales";
 import { ReactNode } from "react";
 
@@ -46,23 +46,23 @@ export function SelectedProductInfo({ product }: Props) {
         />
         <Info
           label="کد"
-          value={product.slug}
+          value={product.code ?? "-"}
           icon={<Hash />}
         />
         <Info
-          label="اندازه"
-          value={product.size ?? "-"}
-          icon={<Ruler />}
+          label="نوع"
+          value={product.stock_qty ?? "-"}
+          icon={<Layers  />}
         />
         <Info
-          label="کیفیت"
-          value={product.quality ?? "-"}
-          icon={<Layers />}
+          label="کشور تولید کننده"
+          value={product.country ?? "-"}
+          icon={<Flag />}
         />
         <Info
           label="عیار"
-          value={product.type ?? "-"}
-          icon={<Package />}
+          value={product.purity ?? "-"}
+          icon={<Percent   />}
         />
       </div>
     </div>

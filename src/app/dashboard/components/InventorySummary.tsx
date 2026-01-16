@@ -115,7 +115,7 @@ export default function InventorySummary() {
                     <div>
                       <div className="flex items-center gap-1">
                         <h3 className="text-sm md:text-base font-medium text-gray-900">{item.name}</h3>
-                        <p className="text-xs text-gray-600"> دسته بنده({item.type})</p>
+                        <p className="text-xs text-gray-600"> دسته بندی({item.type})</p>
                       </div>
 
                       <div className="flex items-center gap-2 mt-1">

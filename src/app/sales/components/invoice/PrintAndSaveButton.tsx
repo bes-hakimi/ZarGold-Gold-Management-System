@@ -11,13 +11,13 @@ export interface CreateSalePayload {
   customer_name?: string;
   customer_phone?: string;
   customer_address?: string;
-  payment_method: string;
-  delivery_method: string;
   description?: string;
   products: {
     product_id: number;
     qty: number;
     main_price: string;
+    weight?: string;
+    rate?: string;
   }[];
 }
 
@@ -32,7 +32,7 @@ interface PrintAndSaveButtonProps {
   disabled?: boolean;
 }
 
-export function PrintAndSaveButton({ saleData, onSuccess, disabled  }: PrintAndSaveButtonProps) {
+export function PrintAndSaveButton({ saleData, onSuccess, disabled }: PrintAndSaveButtonProps) {
   const { mutateAsync, isPending } = useApiPost<CreateSaleResponse, CreateSalePayload>(
     SALES.create
   );
@@ -40,22 +40,20 @@ export function PrintAndSaveButton({ saleData, onSuccess, disabled  }: PrintAndS
   const handleSaveAndPrint = async () => {
     if (
       !saleData.products ||
-      !saleData.payment_method ||
-      !saleData.delivery_method ||
       !saleData.customer
     ) {
-      toast.error("لطفاً تمام اطلاعات مشتری، پرداخت، تحویل و محصولات را وارد کنید");
+      toast.error("لطفاً تمام اطلاعات مشتری و محصولات را وارد کنید");
       return;
     }
 
     const payload: CreateSalePayload = {
-      payment_method: saleData.payment_method,
-      delivery_method: saleData.delivery_method,
       description: saleData.description,
       products: saleData.products.map((p: SelectedSaleProduct) => ({
         product_id: p.product.id,
         qty: p.quantity,
         main_price: p.salePrice.toFixed(2),
+        weight: p.weight.toString(),
+        rate: p.goldRate.toString(),
       })),
     };
 

@@ -19,16 +19,12 @@ export default function SalesPage() {
     customerName: "",
     dateFrom: "",
     dateTo: "",
-    paymentMethod: "",
   });
 
   const filteredSales = sales.filter(sale => {
     const customerMatch = sale.customer.customer_name
       .toLowerCase()
       .includes(filters.customerName.toLowerCase());
-    const paymentMatch = filters.paymentMethod
-      ? sale.payment_method === filters.paymentMethod
-      : true;
     const dateFromMatch = filters.dateFrom
       ? new Date(sale.created_at) >= new Date(filters.dateFrom)
       : true;
@@ -36,7 +32,7 @@ export default function SalesPage() {
       ? new Date(sale.created_at) <= new Date(filters.dateTo)
       : true;
 
-    return customerMatch && paymentMatch && dateFromMatch && dateToMatch;
+    return customerMatch && dateFromMatch && dateToMatch;
   });
 
   const handleViewDetails = (sale: SaleList) => {

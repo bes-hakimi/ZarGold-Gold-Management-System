@@ -2,13 +2,13 @@
 
 import { useState, useMemo } from 'react';
 import Header from './components/Header/Header';
-import CurrencySection from './components/CurrencySection';
-import JewelrySection from './components/JewelrySection';
+import CurrencySection from './components/currency-section/CurrencySection';
+import JewelrySection from './components/jewelry-section/JewelrySection';
 import TabSwitcher from './components/TabSwitcher';
 import RefreshButton from './components/RefreshButton';
 import Footer from './components/Footer';
 
-import { Currency, Jewelry, CurrencyApiResponse } from '@/types/market-rates/rates';
+import { Currency, Jewelry, CurrencyApiResponse, GoldApiResponse } from '@/types/market-rates/rates';
 import { useApiGet } from '@/hooks/useApi';
 import { MARKET_RATE } from '@/endpoints/market-rate';
 import { currencyNames, currencyFlags } from './constants/currencies';
@@ -50,15 +50,32 @@ export default function Home() {
 
     // 🔹 Gold API
     const {
-        data: jewelries = [],
+        data: goldApiData,
         isFetching: isGoldLoading,
         isError: isGoldError,
         refetch: refetchGold,
-    } = useApiGet<Jewelry[]>(
-        'live-gold',
+    } = useApiGet<GoldApiResponse>(
+        "live-gold",
         MARKET_RATE.gold,
-        { enabled: activeTab === 'jewelries' }
+        { enabled: activeTab === "jewelries" }
     );
+
+    const jewelries: Jewelry[] = useMemo(() => {
+        if (!goldApiData) return [];
+
+        return Object.entries(goldApiData.gold_price_per_gram_afn).map(
+            ([karat, price], index) => ({
+                id: index + 1,
+                name: `طلای ${karat.replace("K", "")}`,
+                purity: Number(karat.replace("K", "")),
+                pricePerGram: price,
+                change: 0,
+                color: "gold",
+            })
+        );
+    }, [goldApiData]);
+
+
 
     const isLoading = isCurrencyLoading || isGoldLoading;
 
@@ -82,7 +99,7 @@ export default function Home() {
                 {activeTab === 'currencies' && (
                     <>
                         {isCurrencyLoading && (
-                            <ContentLoader text="در حال دریافت نرخ ارز..." variant="wave" />
+                            <ContentLoader text="در حال دریافت نرخ اسعار..." variant="wave" />
                         )}
 
                         {isCurrencyError && (
