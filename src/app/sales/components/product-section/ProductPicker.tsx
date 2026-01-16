@@ -12,8 +12,8 @@ interface SelectedSaleProduct {
   product: ProductType;
   quantity: number;
   salePrice: number;
-  goldRate: number; // نرخ روز طلا
-  weight: number;   // وزن به گرم
+  goldRate: number; 
+  weight: number; 
 }
 
 interface Props {

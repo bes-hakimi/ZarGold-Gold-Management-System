@@ -26,13 +26,16 @@ export default function MarketSummaryHeader() {
   const { weekday, month, year } = afghanDate;
 
   const gregorianDate = now.toLocaleTimeString("fa-IR-u-nu-latn", {
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-});
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
-
-  const time = now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const time = now.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   /* ---------------- API ---------------- */
   const {
@@ -47,22 +50,26 @@ export default function MarketSummaryHeader() {
     isError: isGoldError,
   } = useApiGet<Jewelry[]>("summary-gold", MARKET_RATE.gold);
 
-  const isLoading = isCurrencyLoading || isGoldLoading;
-  const isError = isCurrencyError || isGoldError;
+  /* ✅ اصلاح منطق */
+  const isLoading = isCurrencyLoading && isGoldLoading;
+  const isError = isCurrencyError && isGoldError;
 
   /* ---------------- NORMALIZE DATA ---------------- */
   const marketRates = useMemo(() => {
     if (!currencyData) return [];
 
-    const rates = currencyData.rates_to_afn;
+    const rates = currencyData.rates_to_afn ?? {};
     const goldArray: Jewelry[] = Array.isArray(goldData) ? goldData : [];
+
+    const gold24 = goldArray.find(g => g.purity === 24)?.pricePerGram;
+    const gold21 = goldArray.find(g => g.purity === 21)?.pricePerGram;
 
     return [
       {
         id: "usd",
         icon: <DollarSign className="w-5 h-5" />,
         title: "دلار",
-        value: rates.USD?.toLocaleString("en-US") ?? "—",
+        value: rates.USD ? rates.USD.toLocaleString("en-US") : "—",
         unit: "افغانی",
         change: "—",
         trend: "up",
@@ -71,7 +78,7 @@ export default function MarketSummaryHeader() {
         id: "eur",
         icon: <Euro className="w-5 h-5" />,
         title: "یورو",
-        value: rates.EUR?.toLocaleString("en-US") ?? "—",
+        value: rates.EUR ? rates.EUR.toLocaleString("en-US") : "—",
         unit: "افغانی",
         change: "—",
         trend: "up",
@@ -80,7 +87,7 @@ export default function MarketSummaryHeader() {
         id: "gold-24",
         icon: <Gem className="w-5 h-5" />,
         title: "طلا ۲۴",
-        value: goldArray.find(g => g.purity === 24)?.pricePerGram?.toLocaleString("en-US"),
+        value: gold24 ? gold24.toLocaleString("en-US") : "—",
         unit: "افغانی",
         change: "—",
         trend: "up",
@@ -89,7 +96,7 @@ export default function MarketSummaryHeader() {
         id: "gold-21",
         icon: <Gem className="w-5 h-5" />,
         title: "طلا ۲۱",
-        value: goldArray.find(g => g.purity === 21)?.pricePerGram?.toLocaleString("en-US"),
+        value: gold21 ? gold21.toLocaleString("en-US") : "—",
         unit: "افغانی",
         change: "—",
         trend: "up",
@@ -122,7 +129,9 @@ export default function MarketSummaryHeader() {
 
           <div className="flex items-center gap-2">
             <Clock size={18} />
-            <span className="text-lg font-medium font-mono">{isClient ? time : "00:00:00"}</span>
+            <span className="text-lg font-medium font-mono">
+              {isClient ? time : "00:00:00"}
+            </span>
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
           </div>
         </div>
@@ -153,22 +162,20 @@ export default function MarketSummaryHeader() {
               <div className="bg-white rounded-lg p-4 border border-gray-300 shadow-sm hover:shadow-md">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <div className="p-2 bg-primary-50 rounded-lg text-primary-600">{rate.icon}</div>
+                    <div className="p-2 bg-primary-50 rounded-lg text-primary-600">
+                      {rate.icon}
+                    </div>
                     <span className="font-medium">{rate.title}</span>
                   </div>
 
-                  {rate.value ? (
-                    <div className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs bg-emerald-50 text-emerald-700">
-                      <TrendingUp className="w-3 h-3" />
-                      {rate.change}
-                    </div>
-                  ) : (
-                    <div className="text-xs text-gray-400 px-2 py-1 rounded-lg">در دسترس نیست</div>
-                  )}
+                  <div className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs bg-emerald-50 text-emerald-700">
+                    <TrendingUp className="w-3 h-3" />
+                    {rate.change}
+                  </div>
                 </div>
 
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold">{rate.value ?? "—"}</span>
+                  <span className="text-2xl font-bold">{rate.value}</span>
                   <span className="text-sm text-secondary-500">{rate.unit}</span>
                 </div>
               </div>

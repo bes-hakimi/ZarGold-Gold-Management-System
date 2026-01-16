@@ -14,52 +14,44 @@ interface SalesListProps {
 export function SalesList({ sales, onViewDetails }: SalesListProps) {
   const router = useRouter();
   const columns: Column<SaleList>[] = [
-    {
-      key: "customer.customer_name",
-      label: "مشتری",
-      sortable: true,
-      render: (_value, row) => {
-        const firstLetter = row.customer.customer_name?.[0]?.toUpperCase() || "?";
-        return (
-          <div className="flex items-center gap-3">
-            {/* مربع با حرف اول */}
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-cyan-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">{firstLetter}</span>
-            </div>
-            {/* نام کامل مشتری */}
-            <span className="text-gray-800 font-medium">
-              {row.customer.customer_name}
-            </span>
+  {
+    key: "customer.customer_name",
+    label: "مشتری",
+    sortable: true,
+    render: (_value, row) => {
+      const firstLetter = row.customer.customer_name?.[0]?.toUpperCase() || "?";
+      return (
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold">{firstLetter}</span>
           </div>
-        );
-      }
+          <span className="text-gray-800 font-medium">
+            {row.customer.customer_name}
+          </span>
+        </div>
+      );
     },
+  },
+  {
+    key: "customer.customer_phone",
+    label: "شماره تماس",
+    sortable: true,
+    render: (_value, row) => <span>{row.customer.customer_phone}</span>,
+  },
+  {
+    key: "slug",
+    label: "شماره بل",
+    sortable: true,
+    render: (_value, row) => <span>{row.slug || row.id}</span>,
+  },
+  {
+    key: "created_at",
+    label: "تاریخ",
+    sortable: true,
+    render: (_value, row) => new Date(row.created_at).toLocaleDateString("fa-IR"),
+  },
+];
 
-    {
-      key: "slug",
-      label: "شماره بل",
-      sortable: true,
-      render: (_value, row) => <span>{row.slug || row.id}</span>
-    },
-    {
-      key: "delivery_method",
-      label: "رویش تحویل",
-      sortable: true,
-      render: (_value, row) => <span>{row.delivery_method}</span>
-    },
-    {
-      key: "payment_method",
-      label: "رویش پرداخت",
-      sortable: true,
-      render: (_value, row) => <span>{row.payment_method}</span>
-    },
-    {
-      key: "created_at",
-      label: "تاریخ",
-      sortable: true,
-      render: (_value, row) => new Date(row.created_at).toLocaleDateString('fa-IR')
-    },
-  ];
 
   const getActions = (sale: SaleList) => [
     { label: "مشاهده", icon: <Eye className="w-4 h-4" />, onClick: () => onViewDetails(sale) },

@@ -25,3 +25,9 @@ export interface CurrencyApiResponse {
   date: string;
   rates_to_afn: Record<string, number>;
 }
+
+export interface GoldApiResponse {
+  source: string;
+  usd_to_afn: number;
+  gold_price_per_gram_afn: Record<string, number>;
+}

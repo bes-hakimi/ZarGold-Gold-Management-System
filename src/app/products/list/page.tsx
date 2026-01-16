@@ -79,6 +79,7 @@ export default function ProductsPage() {
 
   const columns: Column<ProductType>[] = [
     {
+
       key: "name",
       label: "نام محصول",
       sortable: true,
@@ -96,7 +97,7 @@ export default function ProductsPage() {
             </div>
             <div>
               <div className="font-medium text-gray-900">{displayValue}</div>
-              <div className="text-xs text-gray-500">کد: {row.slug || "-"}</div>
+              <div className="text-xs text-gray-500">کد: {row.code || "-"}</div>
             </div>
           </div>
         );

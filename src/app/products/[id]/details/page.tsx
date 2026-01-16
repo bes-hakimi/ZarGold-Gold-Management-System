@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { DeleteButton, EditButton } from "@/components/ui/Button";
 import {
-    Package, Ruler, Hash, Calendar, MapPin, Star, DollarSign, TrendingUp, Weight, Palette
+    Package, Gem, Hash, Calendar, MapPin, Star, DollarSign, TrendingUp, Weight, Palette
 } from "lucide-react";
 import { useApiGet, useApiDeleteDynamic } from "@/hooks/useApi";
 import { PRODUCT } from "@/endpoints/products";
@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
                                     <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
                                     <div className="flex items-center gap-2 text-gray-600">
                                         <Hash size={16} />
-                                        <span>کد: {product.slug}</span>
+                                        <span>کد: {product.code}</span>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
@@ -129,8 +129,13 @@ export default function ProductDetailPage() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {product.type && (
-                                    <InfoCard icon={<Package size={20} />} label="نوع قالین" value={product.type} />
+                                    <InfoCard
+                                        icon={<Package size={20} />}
+                                        label="نوع"
+                                        value={product.type}
+                                    />
                                 )}
+
                                 {product.main_price && (
                                     <InfoCard
                                         icon={<DollarSign size={20} />}
@@ -140,15 +145,46 @@ export default function ProductDetailPage() {
                                 )}
 
                                 {product.purity && (
-                                    <InfoCard icon={<Ruler size={20} />} label="سایز" value={product.purity} />
+                                    <InfoCard
+                                        icon={<Gem size={20} />}
+                                        label="عیار"
+                                        value={product.purity}
+                                    />
                                 )}
+
                                 {product.code && (
-                                    <InfoCard icon={<Star size={20} />} label="کیفیت" value={product.code} />
+                                    <InfoCard
+                                        icon={<Hash size={20} />}
+                                        label="کد محصول"
+                                        value={product.code}
+                                    />
                                 )}
+
                                 {product.country && (
-                                    <InfoCard icon={<MapPin size={20} />} label="مبدأ" value={product.country} />
+                                    <InfoCard
+                                        icon={<MapPin size={20} />}
+                                        label="کشور تولیدکننده"
+                                        value={product.country}
+                                    />
+                                )}
+
+                                {product.rate && (
+                                    <InfoCard
+                                        icon={<TrendingUp size={20} />}
+                                        label="نرخ طلا در روز ثبت"
+                                        value={product.rate}
+                                    />
+                                )}
+
+                                {product.stock_qty && (
+                                    <InfoCard
+                                        icon={<Package size={20} />}
+                                        label="تعداد"
+                                        value={product.stock_qty}
+                                    />
                                 )}
                             </div>
+
 
 
                         </div>

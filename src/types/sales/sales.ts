@@ -2,18 +2,20 @@ export type FormField = "customer_name" | "customer_phone" | "customer_address" 
 
 export interface ProductType {
   id: number;
+  code: string;
+  country?: string;
+  purity?: string;
   name: string;
   slug: string;
   main_price: string;
   stock_qty: number;
-  size?: string;
-  main_color?: string;
-  quality?: string;
   type?: string;
+  weight?: string;
 }
 
 export interface SelectedSaleProduct {
   product: ProductType;
+  code?: string;
   quantity: number;
   salePrice: number;
   goldRate: number;
@@ -33,8 +35,6 @@ export interface SaleInitialData {
   slug?: string; // برای استفاد در نمایش جزئیات
   created_at?: string;  // برای استفاده در نمایش جزئیات
   customer?: CustomerType;
-  payment_method?: string;
-  delivery_method?: string;
   description?: string;
   products?: SelectedSaleProduct[];
   company_info?: CompanyInfo;
@@ -53,5 +53,5 @@ export interface CompanyInfo {
   phone: string;
   address: string;
   email: string;
-  warranty: string; // مثلا "دو ساله"
+  warranty: string;
 }

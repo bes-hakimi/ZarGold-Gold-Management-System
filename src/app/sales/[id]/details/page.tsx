@@ -66,8 +66,6 @@ export default function SaleDetailsPage() {
     // invoiceNumber: `INV-${sale.id}`,
     slug: sale.slug,
     created_at: sale.created_at,
-    payment_method: sale.payment_method,
-    delivery_method: sale.delivery_method,
     description: sale.description,
     customer: {
       ...sale.customer,
@@ -76,10 +74,15 @@ export default function SaleDetailsPage() {
     products: sale.items.map((item): SelectedSaleProduct => ({
       quantity: item.qty,
       salePrice: parseFloat(item.main_price),
-      product: item.product,
-      goldRate: 0,
-      weight: 0,
+      product: {
+        ...item.product,
+        code: item.product.code || "-", // مقدار پیش‌فرض
+      },
+      goldRate: parseFloat(item.product.rate || "0"),
+      weight: parseFloat(item.product.weight || "0"),
     })),
+
+
     company_info: companyData?.details,
   };
 
