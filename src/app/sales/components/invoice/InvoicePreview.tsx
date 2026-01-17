@@ -14,6 +14,7 @@ import "@/styles/InvoicePrintStyles.css";
 import { SaleInitialData, SelectedSaleProduct } from "@/types/sales/sales";
 import { PrintAndSaveButton } from "./PrintAndSaveButton";
 import { useAuth } from "@/hooks/useAuth";
+import { RefreshButton } from "@/components/ui/RefreshBoutton";
 
 
 interface InvoicePreviewProps {
@@ -72,6 +73,7 @@ export function InvoicePreview({ saleData, onBack }: InvoicePreviewProps) {
           پیش‌نمایش بل
         </h2>
         <div className="flex gap-3">
+          <RefreshButton label="فروش مورد جدید" />
           <PrevButton onClick={onBack} disabled={isProcessing}>
             بازگشت به ویرایش
           </PrevButton>
@@ -81,7 +83,6 @@ export function InvoicePreview({ saleData, onBack }: InvoicePreviewProps) {
             onSuccess={handleInvoiceSaved}
             disabled={isProcessing} 
           />
-
         </div>
       </div>
 
