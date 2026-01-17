@@ -7,8 +7,6 @@ import {
   Package,
   DollarSign,
   Calendar,
-  CreditCard,
-  Truck,
   FileText
 } from "lucide-react";
 import { SaleDetailsType } from "@/types/sales/details";
@@ -129,6 +127,7 @@ export function SaleDetails({ saleData }: SaleDetailsProps) {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">نوع: {product.type || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">وزن: {product.weight || "ندارد"}</p>
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-medium">تعداد: {item.qty}</p>
