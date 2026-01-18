@@ -98,7 +98,7 @@ export default function BranchStatsCards({ stats }: BranchStatsCardsProps) {
       <StatCard
         title="موجودی گدام"
         value={safeStats.totalStockQty.toString()}
-        subtitle="عدد قالین"
+        subtitle="عدد محصول"
         icon={Archive}
         color="orange"
       />

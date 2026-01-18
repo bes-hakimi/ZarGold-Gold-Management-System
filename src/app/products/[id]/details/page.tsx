@@ -48,7 +48,7 @@ export default function ProductDetailPage() {
     return (
         <div className="w-full">
             {/* PageHeader همیشه نمایش داده می‌شود */}
-            <PageHeader title="جزئیات محصول" description="مشاهده اطلاعات کامل قالین" />
+            <PageHeader title="جزئیات محصول" description="مشاهده اطلاعات کامل محصول" />
 
             {/* لودینگ و خطا */}
             {isLoading && (

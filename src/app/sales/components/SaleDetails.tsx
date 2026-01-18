@@ -113,21 +113,21 @@ export function SaleDetails({ saleData }: SaleDetailsProps) {
 
         <div className="space-y-4">
           {items.map((item, index) => {
-            const product = item.product || {} as SaleDetailsType["items"][0]["product"];
+            const items = item ||  {} as SaleDetailsType["items"][0]["product"];
             return (
               <div key={item.id || `product-${index}`} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
-                    <h4 className="font-medium text-gray-900">{product.name}</h4>
-                    <p className="text-sm text-gray-600">کد: {product.code || product.slug || "ندارد"}</p>
+                    <h4 className="font-medium text-gray-900">{items.product.name}</h4>
+                    <p className="text-sm text-gray-600">کد: {items.product.code || items.product.slug || "ندارد"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">کشور تولید کننده: {product.country || "ندارد"}</p>
-                    <p className="text-sm text-gray-600">عیار: {product.purity || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">کشور تولید کننده: {items.product.country || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">عیار: {items.product.purity || "ندارد"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">نوع: {product.type || "ندارد"}</p>
-                    <p className="text-sm text-gray-600">وزن: {product.weight || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">نوع: {items.product.type || "ندارد"}</p>
+                    <p className="text-sm text-gray-600">وزن: {items.weight || "ندارد"}</p>
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-medium">تعداد: {item.qty}</p>

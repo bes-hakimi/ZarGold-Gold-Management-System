@@ -285,7 +285,7 @@ export function InvoicePreview({ saleData, onBack }: InvoicePreviewProps) {
                 شرایط و ضوابط:
               </p>
               <p className="text-xs text-gray-600 leading-relaxed">
-                تمام قالین‌ها ضمانت {saleData.company_info?.warranty} دارند.
+                تمام محصولات ضمانت {saleData.company_info?.warranty} دارند.
                 برگشت جنس در صورت مشکل تا یک هفته.
               </p>
             </div>

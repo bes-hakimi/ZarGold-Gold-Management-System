@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { getAfghanDate } from "@/lib/afghan-date";
 import { useApiGet } from "@/hooks/useApi";
 import { MARKET_RATE } from "@/endpoints/market-rate";
-import { CurrencyApiResponse, Jewelry } from "@/types/market-rates/rates";
+import { CurrencyApiResponse, GoldApiResponse } from "@/types/market-rates/rates";
 
 import { ContentLoader } from "@/components/loading/DataLoading";
 
@@ -32,8 +32,6 @@ export default function MarketSummaryHeader() {
     day: "numeric",
   });
 
-
-
   const time = now.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
@@ -48,24 +46,23 @@ export default function MarketSummaryHeader() {
   } = useApiGet<CurrencyApiResponse>("summary-currency", MARKET_RATE.currency);
 
   const {
-    data: goldData = [],
+    data: goldData,
     isFetching: isGoldLoading,
     isError: isGoldError,
-  } = useApiGet<Jewelry[]>("summary-gold", MARKET_RATE.gold);
+  } = useApiGet<GoldApiResponse>("summary-gold", MARKET_RATE.gold);
 
-  /* ✅ اصلاح منطق */
-  const isLoading = isCurrencyLoading && isGoldLoading;
-  const isError = isCurrencyError && isGoldError;
+  /* ---------------- STATUS ---------------- */
+  const isLoading = isCurrencyLoading || isGoldLoading;
+  const isError = isCurrencyError || isGoldError;
 
   /* ---------------- NORMALIZE DATA ---------------- */
   const marketRates = useMemo(() => {
-    if (!currencyData) return [];
+    if (!currencyData || !goldData) return [];
 
     const rates = currencyData.rates_to_afn ?? {};
-    const goldArray: Jewelry[] = Array.isArray(goldData) ? goldData : [];
 
-    const gold24 = goldArray.find(g => g.purity === 24)?.pricePerGram;
-    const gold21 = goldArray.find(g => g.purity === 21)?.pricePerGram;
+    const gold24 = goldData.gold_price_per_gram_afn?.["24K"];
+    const gold21 = goldData.gold_price_per_gram_afn?.["21K"];
 
     return [
       {
@@ -178,7 +175,7 @@ export default function MarketSummaryHeader() {
                 </div>
 
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold">{rate.value}</span>
+                  <span className="text-xl font-bold">{rate.value}</span>
                   <span className="text-sm text-secondary-500">{rate.unit}</span>
                 </div>
               </div>
