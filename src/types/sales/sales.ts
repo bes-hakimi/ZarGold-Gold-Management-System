@@ -36,6 +36,7 @@ export interface SaleInitialData {
   created_at?: string;  // برای استفاده در نمایش جزئیات
   customer?: CustomerType;
   description?: string;
+  weight?: number;
   products?: SelectedSaleProduct[];
   company_info?: CompanyInfo;
 }

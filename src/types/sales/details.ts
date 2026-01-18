@@ -2,7 +2,7 @@
 
 export interface SaleDetailsType {
   id: number;
-  slug:string;
+  slug: string;
   invoiceNumber: string; // اگر در API نیست، در کامپوننت تولید می‌شود
   rate: string;
   weight: string;
@@ -19,6 +19,7 @@ export interface SaleDetailsType {
   items: {
     id: number;
     qty: number;
+    weight: string;
     main_price: string;
     product: {
       id: number;
@@ -34,7 +35,6 @@ export interface SaleDetailsType {
       image: string;
       gallery_image: string | null;
       description: string;
-      weight: string;
       rate: string;
       purity: string;
       main_color: string;

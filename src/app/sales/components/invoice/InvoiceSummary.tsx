@@ -143,7 +143,7 @@ export function InvoiceSummary({ saleData }: InvoicePreviewProps) {
                     <div className="flex flex-nowrap gap-1 items-center text-xs text-gray-600 mt-1 ">
                       <p>عیار: {item.product?.purity}</p>
                       |
-                      <p>وزن: {item.product?.weight}</p>
+                      <p>وزن: {item.weight}</p>
                       |
                       <p>نوع: {item.product?.type}</p>
 
@@ -174,7 +174,7 @@ export function InvoiceSummary({ saleData }: InvoicePreviewProps) {
           </p>
           <p className="text-gray-600 text-xs leading-relaxed">
             {saleData.description ||
-              "قالین‌های فروخته شده با کیفیت درجه یک و گارانتی دو ساله می‌باشد. در صورت وجود هرگونه مشکل در مدت گارانتی، قالین تعویض خواهد شد."}
+              "محصول فروخته شده با کیفیت درجه یک و گارانتی دو ساله می‌باشد. در صورت وجود هرگونه مشکل در مدت گارانتی، محصول تعویض خواهد شد."}
           </p>
         </div>
 
@@ -215,7 +215,7 @@ export function InvoiceSummary({ saleData }: InvoicePreviewProps) {
               شرایط و ضوابط:
             </p>
             <p className="text-xs text-gray-600 leading-relaxed">
-              تمام قالین‌ها ضمانت {saleData.company_info?.warranty} دارند.
+              تمام محصول ضمانت {saleData.company_info?.warranty} دارند.
               برگشت جنس در صورت مشکل تا یک هفته.
             </p>
           </div>

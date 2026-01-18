@@ -63,7 +63,6 @@ export default function SaleDetailsPage() {
 
   // آماده‌سازی داده برای InvoicePreview
   const saleDataForInvoice: SaleInitialData = {
-    // invoiceNumber: `INV-${sale.id}`,
     slug: sale.slug,
     created_at: sale.created_at,
     description: sale.description,
@@ -79,7 +78,7 @@ export default function SaleDetailsPage() {
         code: item.product.code || "-", // مقدار پیش‌فرض
       },
       goldRate: parseFloat(item.product.rate || "0"),
-      weight: parseFloat(item.product.weight || "0"),
+      weight: parseFloat(item.weight || "0"),
     })),
 
 
