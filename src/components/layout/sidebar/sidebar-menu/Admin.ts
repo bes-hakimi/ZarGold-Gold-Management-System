@@ -14,6 +14,7 @@ import {
   Users,
   UserPlus,
   DollarSign,
+  Headset,
 } from "lucide-react";
 
 export const sidebarMenuAdmin = [
@@ -77,5 +78,10 @@ export const sidebarMenuAdmin = [
     title: "گزارشات",
     icon: FileText,
     link: "/reports",
+  },
+   {
+    title: "پشتیبانی",
+    icon: Headset,
+    link: "/support",
   },
 ];
