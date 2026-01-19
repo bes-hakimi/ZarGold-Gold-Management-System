@@ -9,6 +9,7 @@ import {
   List,
   Package,
   DollarSign,
+  Headset,
 } from "lucide-react";
 
 export const sidebarMenuBranch = [
@@ -50,6 +51,11 @@ export const sidebarMenuBranch = [
     title: "نرخ بازار",
     icon: DollarSign,
     link: "/market-rates",
+  },
+   {
+    title: "پشتیبانی",
+    icon: Headset,
+    link: "/support",
   },
 
 ];
