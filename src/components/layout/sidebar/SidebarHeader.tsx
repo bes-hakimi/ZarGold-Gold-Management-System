@@ -19,7 +19,7 @@ const SidebarHeader = ({ collapsed, onToggle }: SidebarHeaderProps) => {
       {/* 🔹 لوگو و عنوان */}
       <div className="flex items-center space-x-2">
         <Image
-          src="/images/logo/carpet-logo.jpg"
+          src="/images/logo/zar-gold.jpg"
           alt="logo"
           width={32}
           height={32}
