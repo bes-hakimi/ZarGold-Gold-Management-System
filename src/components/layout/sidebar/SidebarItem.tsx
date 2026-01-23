@@ -5,6 +5,9 @@ import SidebarSubmenu from './SidebarSubmenu';
 import { useApiGet } from '@/hooks/useApi';
 import { NOTIFICATION } from '@/endpoints/notification';
 import { NotificationListResponse } from '@/types/notification/notifications';
+import { SUPPORT } from '@/endpoints/support';
+import { SupportListResponse } from '@/types/support/support';
+
 
 interface SidebarItemProps {
   title: string;
@@ -29,10 +32,18 @@ const SidebarItem = ({
   onToggle
 }: SidebarItemProps) => {
 
+  // notification section
   const { data: notifications } = useApiGet<NotificationListResponse>(
     'notifications',
     NOTIFICATION.list
   );
+
+  // suport message section 
+  const { data: supportMessages } = useApiGet<SupportListResponse>(
+    'support-messages',
+    SUPPORT.list
+  );
+
 
   const isActive =
     (link && pathname === link) ||
@@ -40,6 +51,8 @@ const SidebarItem = ({
 
 
   const unreadCount = notifications?.data.filter(n => !n.is_read).length ?? 0;
+  const unreadSupportCount = supportMessages?.count ?? 0;
+
 
   // اگر ساب‌مینو دارد
   if (submenu) {
@@ -101,13 +114,22 @@ const SidebarItem = ({
         <div className="flex items-center space-x-2 relative w-full">
           <span>{title}</span>
 
+          {/* نوتیفیکیشن */}
           {title === 'اعلانات' && unreadCount > 0 && (
             <div className="absolute top-0 left-0 flex items-center justify-center min-w-5 min-h-5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse">
               <span className="pb-[1px]">{unreadCount}</span>
             </div>
           )}
+
+          {/* پشتیبانی */}
+          {title === 'پشتیبانی مشتریان' && unreadSupportCount > 0 && (
+            <div className="absolute top-0 left-0 flex items-center justify-center min-w-5 min-h-5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse">
+              <span className="pb-[1px]">{unreadSupportCount}</span>
+            </div>
+          )}
         </div>
       )}
+
     </Link>
   );
 };

@@ -34,25 +34,24 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const showTopBar = !hidePaths.includes(pathname);
 
   return (
-    <div className="w-[100vw]">
-      {/* ✅ TopBar فقط اگر مسیر مجاز باشد */}
-      <div className="flex ">
+    <div className="min-h-screen w-full overflow-x-hidden">
+      <div className="flex w-full overflow-x-hidden">
         {showTopBar && (
-          <div className="hidden sm:block z-10">
+          <div className="hidden sm:block z-10 flex-shrink-0">
             <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
           </div>
         )}
 
-
-        <div className="flex flex-col h-screen w-full ">
+        <div className="flex flex-col h-screen w-full min-w-0">
           {showTopBar && <TopBar />}
+
           <main
-            className={`overflow-y-auto overflow-x-auto no-scroll transition-all duration-300  ${showTopBar ? "p-3 md:p-6 pb-36 md:pb-16" : "h-screen "}`}
+            className={`flex-1 overflow-y-auto overflow-x-hidden transition-all duration-300
+            ${showTopBar ? "p-3 md:p-6 pb-36 md:pb-16" : ""}`}
           >
             {children}
           </main>
         </div>
-
       </div>
 
       {showTopBar && <MobileBottomBar />}

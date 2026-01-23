@@ -38,7 +38,7 @@ export function CustomerList({ items, selected, onSelect }: Props) {
       </div>
 
       {/* List */}
-      <div className="p-3 space-y-2">
+      <div className="p-3 space-y-2 h-96 overflow-y-scroll no-scroll">
         {paginatedItems.map(item => {
           const user = item.user;
 
@@ -46,7 +46,7 @@ export function CustomerList({ items, selected, onSelect }: Props) {
             <button
               key={item.id}
               onClick={() => onSelect(item)}
-              className={`w-full flex items-start gap-3 p-3 rounded-lg border border-gray-300 transition text-right
+              className={`w-full  flex items-start gap-3 p-3 rounded-lg border border-gray-300 transition text-right
                 ${
                   selected?.id === item.id
                     ? 'bg-primary-50 border-primary-500'
@@ -88,7 +88,7 @@ export function CustomerList({ items, selected, onSelect }: Props) {
           <button
             disabled={page === 1}
             onClick={() => setPage(p => p - 1)}
-            className="px-3 py-1 rounded-md border disabled:opacity-40 hover:bg-gray-50"
+            className="px-3 py-1 rounded-md border border-primary-200 bg-primary-100 disabled:bg-gray-50 disabled:border-gray-100 hover:bg-primary-200"
           >
             قبلی
           </button>
@@ -100,7 +100,7 @@ export function CustomerList({ items, selected, onSelect }: Props) {
           <button
             disabled={page === totalPages}
             onClick={() => setPage(p => p + 1)}
-            className="px-3 py-1 rounded-md border disabled:opacity-40 hover:bg-gray-50"
+            className="px-3 py-1 rounded-md border border-primary-200 bg-primary-100 disabled:bg-gray-50 disabled:border-gray-100 hover:bg-primary-200"
           >
             بعدی
           </button>

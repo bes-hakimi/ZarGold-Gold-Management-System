@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 import { SUPPORT } from '@/endpoints/support';
 import { useApiPost } from '@/hooks/useApi';
+import { ApiError } from '@/types/api/api';
 
 interface SupportPayload {
     subject: string;
@@ -16,7 +17,7 @@ interface SupportPayload {
 export default function NewProblemForm() {
     const [message, setMessage] = useState('');
 
-    const { mutate, isPending } = useApiPost<any, SupportPayload>(
+    const { mutate, isPending } = useApiPost<unknown, SupportPayload>(
         SUPPORT.create
     );
 
@@ -36,9 +37,10 @@ export default function NewProblemForm() {
                     toast.success('مشکل شما با موفقیت ثبت شد');
                     setMessage('');
                 },
-                onError: (error: any) => {
+                onError: (error: ApiError) => {
                     toast.error(
                         error?.response?.data?.message ||
+                        error?.response?.data?.detail ||
                         'خطا در ثبت مشکل، لطفاً دوباره تلاش کنید'
                     );
                 },
@@ -63,10 +65,11 @@ export default function NewProblemForm() {
                 onClick={handleSubmit}
                 disabled={isPending}
                 loading={isPending}
+                loadingText='در حال ارسال ...'
                 className="w-full bg-primary-500 hover:bg-primary-600"
                 icon={<MessageCircle className="w-4 h-4" />}
             >
-                {isPending ? 'در حال ارسال...' : 'ارسال مشکل'}
+                ارسال مشکل
             </Button>
         </div>
     );
