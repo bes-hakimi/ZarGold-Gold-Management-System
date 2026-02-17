@@ -17,7 +17,7 @@ export default function ContactProfileCard({ data, userRole }: Props) {
             : null;
 
     return (
-        <div className="bg-surface rounded-xl shadow p-6 border border-border">
+        <div className="bg-surface rounded-xl shadow p-4 md:p-6 border border-border">
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
                     {data?.details.company_logo ? (
@@ -32,7 +32,7 @@ export default function ContactProfileCard({ data, userRole }: Props) {
                 </div>
 
                 <div>
-                    <h3 className="font-semibold">
+                    <h3 className="text-xs md:text-base font-semibold truncate">
                         {name ?? 'نام شرکت یا شعبه'}
                     </h3>
                     <p className="text-sm text-text-secondary">
