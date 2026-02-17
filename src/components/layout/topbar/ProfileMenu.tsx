@@ -50,7 +50,10 @@ export default function ProfileMenu({ name, avatar }: ProfileMenuProps) {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
-        <span className="text-slate-700 text-sm font-medium">{name}</span>
+        <span className="text-slate-700 text-sm font-medium">
+          {name.length > 8 ? name.slice(0, 8) + "..." : name}
+        </span>
+
         <div className="w-6 h-6 md:w-8 md:h-8 relative rounded-sm border border-primary-400 overflow-hidden">
           <Image
             src={avatar}
